@@ -23,3 +23,7 @@ Example
 
 Generated code will be output to the standard output, while debugging message may be sent to the standard error stream.
 palette.txt is an example of code generated.
+
+The main function provided by this code is simply
+
+    fixed4 nearestColor(fixed4 color)
