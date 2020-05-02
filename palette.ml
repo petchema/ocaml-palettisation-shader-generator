@@ -414,31 +414,73 @@ let palette_distinct palette =
     | h :: q -> aux (if List.mem h acc then acc else h :: acc) q in
   aux [] palette
 
-let leaf_function prefix color =
-  Printf.printf "ColorMatch findColor%s() { return buildColorMatch(fixed4(%d.0/255,%d.0/255,%d.0/255,1.0)); }\n\n" prefix color.r color.g color.b
+let palette_average_color palette =
+  let rec aux palette n total_r total_g total_b =
+    match palette with
+    | [] ->
+       let n2 = n / 2 in
+       { r=(total_r + n2) / n; g=(total_g + n2) / n; b=(total_b + n2) / n }
+    | h :: q ->
+       aux q (n+1) (total_r + h.r) (total_g + h.g) (total_b + h.b) in
+  aux palette 0 0 0 0
+
+(* https://en.wikipedia.org/wiki/K-d_tree#Nearest_neighbour_search *)
   
-let node_function prefix component limit =
-  Printf.printf "ColorMatch findColor%s()\n{\n" prefix;
-  Printf.printf "  fixed diff = targetColor.%s - %d.0/255;\n" component limit;
-  Printf.printf "  if (diff >= 0)\n  {\n";
-  Printf.printf "    ColorMatch best = findColor%sL();\n" prefix;
-  Printf.printf "    if (best.minDistSqr <= diff * diff) return best;\n";
-  Printf.printf "    ColorMatch otherBest = findColor%sR();\n" prefix;
-  (*  Printf.printf "    return (otherBest.minDistSqr >= best.minDistSqr) ? best : otherBest;\n"; *)
-  Printf.printf "    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;\n";
-  Printf.printf "  }\n  else\n  {\n";
-  Printf.printf "    ColorMatch best = findColor%sR();\n" prefix;
-  Printf.printf "    if (best.minDistSqr <= diff * diff) return best;\n";
-  Printf.printf "    ColorMatch otherBest = findColor%sL();\n" prefix;
-  (*  Printf.printf "    return (otherBest.minDistSqr >= best.minDistSqr) ? best : otherBest;\n"; *)
-  Printf.printf "    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;\n";
-  Printf.printf "  }\n}\n\n"
+type function_type = Leaf of string (* Expr *)
+                   | Function of string * string (* Name and definition *)
   
-let split proj dist palette =
+let leaf_function prefix palette =
+  let color = palette_average_color palette in
+  Leaf (Printf.sprintf "buildColorMatch(fixed4(%d.0/255,%d.0/255,%d.0/255,1.0))" color.r color.g color.b)
+
+let leaf_function prefix palette =
+  Function (Printf.sprintf "findColor%s" prefix,
+            Printf.sprintf "ColorMatch findColor%s()\n{\n" prefix ^
+              (let rec aux palette =
+                 match palette with
+                 | [] -> ""
+                 | h :: q ->
+                    Printf.sprintf "  otherBest = buildColorMatch(fixed4(%d.0/255,%d.0/255,%d.0/255,1.0));\n  if (otherBest.minDistSqr < best.minDistSqr) best = otherBest;\n%s" h.r h.g h.b (aux q) in
+                match palette with
+                | [] -> failwith "leaf_function"
+                | [h] -> 
+                   Printf.sprintf "  return buildColorMatch(fixed4(%d.0/255,%d.0/255,%d.0/255,1.0));\n}\n\n" h.r h.g h.b
+                | h :: q ->
+                   Printf.sprintf "  ColorMatch best = buildColorMatch(fixed4(%d.0/255,%d.0/255,%d.0/255,1.0));\n  ColorMatch otherBest;\n%s  return best;\n}\n\n" h.r h.g h.b (aux q)))
+  
+let node_function prefix component limit left_function right_function =
+  let left_def, left_call =
+    match left_function with
+    | Leaf expr -> ("", expr)
+    | Function (name, def) -> (def, Printf.sprintf "%s()" name) in
+  let right_def, right_call =
+    match right_function with
+    | Leaf expr -> ("", expr)
+    | Function (name, def) -> (def, Printf.sprintf "%s()" name) in
+  Function (Printf.sprintf "findColor%s" prefix,
+            left_def ^
+            right_def ^
+            Printf.sprintf "ColorMatch findColor%s()\n{\n" prefix ^
+            Printf.sprintf "  fixed diff = targetColor.%s - %d.0/255;\n" component limit ^
+            Printf.sprintf "  if (diff >= 0)\n  {\n" ^
+            Printf.sprintf "    ColorMatch best = %s;\n" left_call ^
+            Printf.sprintf "    if (best.minDistSqr <= diff * diff) return best;\n" ^
+            Printf.sprintf "    ColorMatch otherBest = %s;\n" right_call ^
+            (*  Printf.printf "    return (otherBest.minDistSqr >= best.minDistSqr) ? best : otherBest;\n" ^ *)
+            Printf.sprintf "    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;\n" ^
+            Printf.sprintf "  }\n  else\n  {\n" ^
+            Printf.sprintf "    ColorMatch best = %s;\n" right_call ^
+            Printf.sprintf "    if (best.minDistSqr <= diff * diff) return best;\n" ^
+            Printf.sprintf "    ColorMatch otherBest = %s;\n" left_call ^
+            (*  Printf.printf "    return (otherBest.minDistSqr >= best.minDistSqr) ? best : otherBest;\n" ^ *)
+            Printf.sprintf "    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;\n" ^
+            Printf.sprintf "  }\n}\n\n")
+  
+let split proj dist palette cluster_size =
   (* col_min .. col_max defines the color box *)
   let rec split_r col_min col_max palette prefix =
     let palette_count = List.length palette in
-    if palette_count == 1 then leaf_function prefix (List.hd palette)
+    if palette_count <= cluster_size then leaf_function prefix palette
     else
       let sorted_palette = List.sort (fun col1 col2 -> col1.r - col2.r) palette in
       let left_list, right_list = list_split sorted_palette (palette_count / 2) in
@@ -450,13 +492,13 @@ let split proj dist palette =
          (match right_list with
           | [] -> split_g col_min col_max palette prefix
           | _ ->
-             split_g {col_min with r=median} col_max right_list (prefix ^ "L");
-             split_g col_min {col_max with r=median-1} left_list (prefix ^ "R");
-             node_function prefix "r" median)
+             let left_function = split_g {col_min with r=median} col_max right_list (prefix ^ "L") in
+             let right_function = split_g col_min {col_max with r=median-1} left_list (prefix ^ "R") in
+             node_function prefix "r" median left_function right_function)
       | _, [] | [], _ -> split_g col_min col_max palette prefix
   and split_g col_min col_max palette prefix =
     let palette_count = List.length palette in
-    if palette_count == 1 then leaf_function prefix (List.hd palette)
+    if palette_count <= cluster_size then leaf_function prefix palette
     else
       let sorted_palette = List.sort (fun col1 col2 -> col1.g - col2.g) palette in
       let left_list, right_list = list_split sorted_palette (palette_count / 2) in
@@ -468,13 +510,13 @@ let split proj dist palette =
          (match right_list with
           | [] -> split_b col_min col_max palette prefix
           | _ ->
-             split_b {col_min with g=median} col_max right_list (prefix ^ "L");
-             split_b col_min {col_max with g=median-1} left_list (prefix ^ "R");
-             node_function prefix "g" median)
+             let left_function = split_b {col_min with g=median} col_max right_list (prefix ^ "L") in
+             let right_function = split_b col_min {col_max with g=median-1} left_list (prefix ^ "R") in
+             node_function prefix "g" median left_function right_function)
       | _, [] | [], _ -> split_b col_min col_max palette prefix
   and split_b col_min col_max palette prefix =
     let palette_count = List.length palette in
-    if palette_count == 1 then leaf_function prefix (List.hd palette)
+    if palette_count <= cluster_size then leaf_function prefix palette
     else
       let sorted_palette = List.sort (fun col1 col2 -> col1.b - col2.b) palette in
       let left_list, right_list = list_split sorted_palette (palette_count / 2) in
@@ -486,9 +528,9 @@ let split proj dist palette =
          (match right_list with
           | [] -> split_r col_min col_max palette prefix
           | _ ->
-             split_r {col_min with b=median} col_max right_list (prefix ^ "L");
-             split_r col_min {col_max with b=median-1} left_list (prefix ^ "R");
-             node_function prefix "b" median)
+             let left_function = split_r {col_min with b=median} col_max right_list (prefix ^ "L") in
+             let right_function = split_r col_min {col_max with b=median-1} left_list (prefix ^ "R") in
+             node_function prefix "b" median left_function right_function)
       | _, [] | [], _ -> split_r col_min col_max palette prefix
   in
   split_r {r=0;g=0;b=0} {r=255;g=255;b=255} palette ""
@@ -507,7 +549,11 @@ let () =
   Printf.printf "  match.minDistSqr = disSqr(targetColor, color);\n";
   Printf.printf "  return match;\n";
   Printf.printf "}\n\n";
-  split proj_id dist_euclidian (palette_distinct art_pal);
+  (match split proj_id dist_euclidian (palette_distinct art_pal) 32 with
+   | Leaf expr ->
+      Printf.printf "%s" expr
+   | Function (name, def) ->
+      Printf.printf "%s" def);
   Printf.printf "fixed4 nearestColor(fixed4 color)\n{\n";
   Printf.printf "  targetColor = color;\n";
   Printf.printf "  ColorMatch best = findColor();\n";
