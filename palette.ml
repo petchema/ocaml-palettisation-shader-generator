@@ -414,85 +414,103 @@ let palette_distinct palette =
     | h :: q -> aux (if List.mem h acc then acc else h :: acc) q in
   aux [] palette
 
-let indentation_to_string indent =
-  let buff = Buffer.create 3 in
-  Buffer.add_char buff '\n';
-  for i = 1 to indent do
-    Buffer.add_char buff ' '
-  done;
-  Buffer.contents buff
+let leaf_function prefix color =
+  Printf.printf "ColorMatch findColor%s() { return buildColorMatch(fixed4(%d.0/255,%d.0/255,%d.0/255,1.0)); }\n\n" prefix color.r color.g color.b
+  
+let node_function prefix component limit =
+  Printf.printf "ColorMatch findColor%s()\n{\n" prefix;
+  Printf.printf "  fixed diff = targetColor.%s - %d.0/255;\n" component limit;
+  Printf.printf "  if (diff >= 0)\n  {\n";
+  Printf.printf "    ColorMatch best = findColor%sL();\n" prefix;
+  Printf.printf "    if (best.minDistSqr <= diff * diff) return best;\n";
+  Printf.printf "    ColorMatch otherBest = findColor%sR();\n" prefix;
+  (*  Printf.printf "    return (otherBest.minDistSqr >= best.minDistSqr) ? best : otherBest;\n"; *)
+  Printf.printf "    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;\n";
+  Printf.printf "  }\n  else\n  {\n";
+  Printf.printf "    ColorMatch best = findColor%sR();\n" prefix;
+  Printf.printf "    if (best.minDistSqr <= diff * diff) return best;\n";
+  Printf.printf "    ColorMatch otherBest = findColor%sL();\n" prefix;
+  (*  Printf.printf "    return (otherBest.minDistSqr >= best.minDistSqr) ? best : otherBest;\n"; *)
+  Printf.printf "    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;\n";
+  Printf.printf "  }\n}\n\n"
   
 let split proj dist palette =
   (* col_min .. col_max defines the color box *)
-  let rec split_r col_min col_max palette indent =
+  let rec split_r col_min col_max palette prefix =
     let palette_count = List.length palette in
-    if palette_count == 1 then Printf.sprintf "return %s;" (color_to_shaderstring (List.hd palette))
+    if palette_count == 1 then leaf_function prefix (List.hd palette)
     else
       let sorted_palette = List.sort (fun col1 col2 -> col1.r - col2.r) palette in
       let left_list, right_list = list_split sorted_palette (palette_count / 2) in
-      Printf.printf "split r %d %d\n%!" (List.length left_list) (List.length right_list);
+      Printf.eprintf "split r %d %d\n%!" (List.length left_list) (List.length right_list);
       match left_list, right_list with
       | first_left :: _, first_right :: _ ->
          let median = (first_left.r + first_right.r) / 2 in
          let left_list, right_list = push_left (fun col -> col.r == median) left_list right_list in
          (match right_list with
-          | [] -> split_g col_min col_max palette (indent + 2)
+          | [] -> split_g col_min col_max palette prefix
           | _ ->
-             Printf.sprintf "%s{ if (target.r >= %d.0/255) %s%s  else %s%s}"
-               (indentation_to_string indent)
-               median
-               (split_g {col_min with r=median} col_max right_list (indent + 2))
-               (indentation_to_string indent)
-               (split_g col_min {col_max with r=median-1} left_list (indent + 2))
-               (indentation_to_string indent))
-      | _, [] | [], _ -> split_g col_min col_max palette (indent + 2)
-  and split_g col_min col_max palette indent =
+             split_g {col_min with r=median} col_max right_list (prefix ^ "L");
+             split_g col_min {col_max with r=median-1} left_list (prefix ^ "R");
+             node_function prefix "r" median)
+      | _, [] | [], _ -> split_g col_min col_max palette prefix
+  and split_g col_min col_max palette prefix =
     let palette_count = List.length palette in
-    if palette_count == 1 then Printf.sprintf "return %s;" (color_to_shaderstring (List.hd palette))
+    if palette_count == 1 then leaf_function prefix (List.hd palette)
     else
       let sorted_palette = List.sort (fun col1 col2 -> col1.g - col2.g) palette in
       let left_list, right_list = list_split sorted_palette (palette_count / 2) in
-      Printf.printf "split g %d %d\n%!" (List.length left_list) (List.length right_list);
+      Printf.eprintf "split g %d %d\n%!" (List.length left_list) (List.length right_list);
       match left_list, right_list with
       | first_left :: _, first_right :: _ ->
          let median = (first_left.g + first_right.g) / 2 in
          let left_list, right_list = push_left (fun col -> col.g == median) left_list right_list in
          (match right_list with
-          | [] -> split_b col_min col_max palette (indent + 2)
+          | [] -> split_b col_min col_max palette prefix
           | _ ->
-             Printf.sprintf "%s{ if (target.g >= %d.0/255) %s%s  else %s%s}"
-               (indentation_to_string indent)
-               median
-               (split_b {col_min with g=median} col_max right_list (indent + 2))
-               (indentation_to_string indent)
-               (split_b col_min {col_max with g=median-1} left_list (indent + 2))
-               (indentation_to_string indent))
-      | _, [] | [], _ -> split_b col_min col_max palette (indent + 2)
-  and split_b col_min col_max palette indent =
+             split_b {col_min with g=median} col_max right_list (prefix ^ "L");
+             split_b col_min {col_max with g=median-1} left_list (prefix ^ "R");
+             node_function prefix "g" median)
+      | _, [] | [], _ -> split_b col_min col_max palette prefix
+  and split_b col_min col_max palette prefix =
     let palette_count = List.length palette in
-    if palette_count == 1 then Printf.sprintf "return %s;" (color_to_shaderstring (List.hd palette))
+    if palette_count == 1 then leaf_function prefix (List.hd palette)
     else
       let sorted_palette = List.sort (fun col1 col2 -> col1.b - col2.b) palette in
       let left_list, right_list = list_split sorted_palette (palette_count / 2) in
-      Printf.printf "split b %d %d\n%!" (List.length left_list) (List.length right_list);
+      Printf.eprintf "split b %d %d\n%!" (List.length left_list) (List.length right_list);
       match left_list, right_list with
       | first_left :: _, first_right :: _ ->
          let median = (first_left.b + first_right.b) / 2 in
          let left_list, right_list = push_left (fun col -> col.b == median) left_list right_list in
          (match right_list with
-          | [] -> split_r col_min col_max palette (indent + 2)
+          | [] -> split_r col_min col_max palette prefix
           | _ ->
-             Printf.sprintf "%s{ if (target.b >= %d.0/255) %s%s  else %s%s}"
-               (indentation_to_string indent)
-               median
-               (split_r {col_min with b=median} col_max right_list (indent + 2))
-               (indentation_to_string indent)
-               (split_r col_min {col_max with b=median-1} left_list (indent + 2))
-               (indentation_to_string indent))
-      | _, [] | [], _ -> split_r col_min col_max palette (indent + 2)
+             split_r {col_min with b=median} col_max right_list (prefix ^ "L");
+             split_r col_min {col_max with b=median-1} left_list (prefix ^ "R");
+             node_function prefix "b" median)
+      | _, [] | [], _ -> split_r col_min col_max palette prefix
   in
-  split_r {r=0;g=0;b=0} {r=255;g=255;b=255} palette 14
+  split_r {r=0;g=0;b=0} {r=255;g=255;b=255} palette ""
   
   
 let () =
-  Printf.printf "%s\n" (split proj_id dist_euclidian (palette_distinct art_pal))
+  Printf.printf "// Beginning of generated code\n\n";
+  Printf.printf "struct ColorMatch\n{\n  fixed4 color;\n  fixed minDistSqr;\n};\n\n";
+  Printf.printf "fixed4 targetColor;\n\n";
+  Printf.printf "fixed disSqr(fixed4 t, fixed4 c)\n{\n";
+  Printf.printf "  return dot(t - c, t - c);\n";
+  Printf.printf "}\n\n";
+  Printf.printf "ColorMatch buildColorMatch(fixed4 color)\n{\n";
+  Printf.printf "  ColorMatch match;\n";
+  Printf.printf "  match.color = color;\n";
+  Printf.printf "  match.minDistSqr = disSqr(targetColor, color);\n";
+  Printf.printf "  return match;\n";
+  Printf.printf "}\n\n";
+  split proj_id dist_euclidian (palette_distinct art_pal);
+  Printf.printf "fixed4 nearestColor(fixed4 color)\n{\n";
+  Printf.printf "  targetColor = color;\n";
+  Printf.printf "  ColorMatch best = findColor();\n";
+  Printf.printf "  return best.color;\n";
+  Printf.printf "}\n\n";
+  Printf.printf "// End of generated code\n"

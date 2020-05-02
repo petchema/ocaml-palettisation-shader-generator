@@ -1,0 +1,5367 @@
+// Beginning of generated code
+
+struct ColorMatch
+{
+  fixed4 color;
+  fixed minDistSqr;
+};
+
+fixed4 targetColor;
+
+fixed disSqr(fixed4 t, fixed4 c)
+{
+  return dot(t - c, t - c);
+}
+
+ColorMatch buildColorMatch(fixed4 color)
+{
+  ColorMatch match;
+  match.color = color;
+  match.minDistSqr = disSqr(targetColor, color);
+  return match;
+}
+
+ColorMatch findColorLLLLLLLL() { return buildColorMatch(fixed4(254.0/255,255.0/255,199.0/255,1.0)); }
+
+ColorMatch findColorLLLLLLLR() { return buildColorMatch(fixed4(254.0/255,245.0/255,185.0/255,1.0)); }
+
+ColorMatch findColorLLLLLLL()
+{
+  fixed diff = targetColor.g - 250.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLLLRL() { return buildColorMatch(fixed4(202.0/255,221.0/255,196.0/255,1.0)); }
+
+ColorMatch findColorLLLLLLRR() { return buildColorMatch(fixed4(220.0/255,220.0/255,220.0/255,1.0)); }
+
+ColorMatch findColorLLLLLLR()
+{
+  fixed diff = targetColor.g - 220.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLLL()
+{
+  fixed diff = targetColor.r - 237.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLLRL() { return buildColorMatch(fixed4(255.0/255,215.0/255,141.0/255,1.0)); }
+
+ColorMatch findColorLLLLLRRLL() { return buildColorMatch(fixed4(254.0/255,235.0/255,170.0/255,1.0)); }
+
+ColorMatch findColorLLLLLRRLR() { return buildColorMatch(fixed4(216.0/255,227.0/255,162.0/255,1.0)); }
+
+ColorMatch findColorLLLLLRRL()
+{
+  fixed diff = targetColor.b - 166.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLLRRR() { return buildColorMatch(fixed4(254.0/255,225.0/255,156.0/255,1.0)); }
+
+ColorMatch findColorLLLLLRR()
+{
+  fixed diff = targetColor.g - 226.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLLR()
+{
+  fixed diff = targetColor.r - 254.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLL()
+{
+  fixed diff = targetColor.b - 177.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLRLLL() { return buildColorMatch(fixed4(245.0/255,212.0/255,172.0/255,1.0)); }
+
+ColorMatch findColorLLLLRLLR() { return buildColorMatch(fixed4(232.0/255,188.0/255,200.0/255,1.0)); }
+
+ColorMatch findColorLLLLRLL()
+{
+  fixed diff = targetColor.g - 200.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLRLRL() { return buildColorMatch(fixed4(205.0/255,205.0/255,224.0/255,1.0)); }
+
+ColorMatch findColorLLLLRLRR() { return buildColorMatch(fixed4(220.0/255,166.0/255,188.0/255,1.0)); }
+
+ColorMatch findColorLLLLRLR()
+{
+  fixed diff = targetColor.g - 185.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLRL()
+{
+  fixed diff = targetColor.r - 226.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLRRLL() { return buildColorMatch(fixed4(244.0/255,202.0/255,167.0/255,1.0)); }
+
+ColorMatch findColorLLLLRRLR() { return buildColorMatch(fixed4(229.0/255,193.0/255,150.0/255,1.0)); }
+
+ColorMatch findColorLLLLRRL()
+{
+  fixed diff = targetColor.g - 197.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLRRRL() { return buildColorMatch(fixed4(208.0/255,185.0/255,134.0/255,1.0)); }
+
+ColorMatch findColorLLLLRRRR() { return buildColorMatch(fixed4(227.0/255,180.0/255,144.0/255,1.0)); }
+
+ColorMatch findColorLLLLRRR()
+{
+  fixed diff = targetColor.g - 182.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLRR()
+{
+  fixed diff = targetColor.r - 228.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLLR()
+{
+  fixed diff = targetColor.b - 169.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLL()
+{
+  fixed diff = targetColor.g - 213.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRLLLL() { return buildColorMatch(fixed4(182.0/255,218.0/255,227.0/255,1.0)); }
+
+ColorMatch findColorLLLRLLLR() { return buildColorMatch(fixed4(188.0/255,188.0/255,199.0/255,1.0)); }
+
+ColorMatch findColorLLLRLLL()
+{
+  fixed diff = targetColor.g - 203.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRLLRL() { return buildColorMatch(fixed4(176.0/255,205.0/255,255.0/255,1.0)); }
+
+ColorMatch findColorLLLRLLRR() { return buildColorMatch(fixed4(158.0/255,202.0/255,202.0/255,1.0)); }
+
+ColorMatch findColorLLLRLLR()
+{
+  fixed diff = targetColor.g - 203.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRLL()
+{
+  fixed diff = targetColor.r - 179.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRLRLL() { return buildColorMatch(fixed4(175.0/255,200.0/255,168.0/255,1.0)); }
+
+ColorMatch findColorLLLRLRLR() { return buildColorMatch(fixed4(197.0/255,197.0/255,197.0/255,1.0)); }
+
+ColorMatch findColorLLLRLRL()
+{
+  fixed diff = targetColor.g - 198.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRLRR() { return buildColorMatch(fixed4(134.0/255,187.0/255,187.0/255,1.0)); }
+
+ColorMatch findColorLLLRLR()
+{
+  fixed diff = targetColor.r - 154.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRL()
+{
+  fixed diff = targetColor.b - 198.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRRLLLL() { return buildColorMatch(fixed4(185.0/255,185.0/255,185.0/255,1.0)); }
+
+ColorMatch findColorLLLRRLLLR() { return buildColorMatch(fixed4(174.0/255,174.0/255,174.0/255,1.0)); }
+
+ColorMatch findColorLLLRRLLL()
+{
+  fixed diff = targetColor.b - 179.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRRLLR() { return buildColorMatch(fixed4(165.0/255,165.0/255,174.0/255,1.0)); }
+
+ColorMatch findColorLLLRRLL()
+{
+  fixed diff = targetColor.g - 169.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRRLRL() { return buildColorMatch(fixed4(147.0/255,185.0/255,244.0/255,1.0)); }
+
+ColorMatch findColorLLLRRLRR() { return buildColorMatch(fixed4(162.0/255,162.0/255,162.0/255,1.0)); }
+
+ColorMatch findColorLLLRRLR()
+{
+  fixed diff = targetColor.g - 173.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRRL()
+{
+  fixed diff = targetColor.r - 163.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRRRLL() { return buildColorMatch(fixed4(186.0/255,174.0/255,147.0/255,1.0)); }
+
+ColorMatch findColorLLLRRRLR() { return buildColorMatch(fixed4(176.0/255,164.0/255,148.0/255,1.0)); }
+
+ColorMatch findColorLLLRRRL()
+{
+  fixed diff = targetColor.g - 169.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRRRRL() { return buildColorMatch(fixed4(148.0/255,176.0/255,141.0/255,1.0)); }
+
+ColorMatch findColorLLLRRRRR() { return buildColorMatch(fixed4(165.0/255,156.0/255,156.0/255,1.0)); }
+
+ColorMatch findColorLLLRRRR()
+{
+  fixed diff = targetColor.g - 166.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRRR()
+{
+  fixed diff = targetColor.r - 170.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLRR()
+{
+  fixed diff = targetColor.b - 159.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLLR()
+{
+  fixed diff = targetColor.g - 185.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLL()
+{
+  fixed diff = targetColor.r - 199.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLLLLL() { return buildColorMatch(fixed4(255.0/255,229.0/255,129.0/255,1.0)); }
+
+ColorMatch findColorLLRLLLLR() { return buildColorMatch(fixed4(255.0/255,206.0/255,107.0/255,1.0)); }
+
+ColorMatch findColorLLRLLLL()
+{
+  fixed diff = targetColor.g - 217.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLLLRL() { return buildColorMatch(fixed4(247.0/255,206.0/255,115.0/255,1.0)); }
+
+ColorMatch findColorLLRLLLRR() { return buildColorMatch(fixed4(247.0/255,206.0/255,107.0/255,1.0)); }
+
+ColorMatch findColorLLRLLLR()
+{
+  fixed diff = targetColor.b - 111.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLLL()
+{
+  fixed diff = targetColor.r - 251.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLLRLL() { return buildColorMatch(fixed4(255.0/255,246.0/255,103.0/255,1.0)); }
+
+ColorMatch findColorLLRLLRLR() { return buildColorMatch(fixed4(241.0/255,238.0/255,45.0/255,1.0)); }
+
+ColorMatch findColorLLRLLRL()
+{
+  fixed diff = targetColor.b - 74.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLLRRL() { return buildColorMatch(fixed4(255.0/255,206.0/255,99.0/255,1.0)); }
+
+ColorMatch findColorLLRLLRRR() { return buildColorMatch(fixed4(255.0/255,206.0/255,90.0/255,1.0)); }
+
+ColorMatch findColorLLRLLRR()
+{
+  fixed diff = targetColor.b - 94.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLLR()
+{
+  fixed diff = targetColor.g - 222.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLL()
+{
+  fixed diff = targetColor.b - 105.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLRLLL() { return buildColorMatch(fixed4(255.0/255,205.0/255,127.0/255,1.0)); }
+
+ColorMatch findColorLLRLRLLR() { return buildColorMatch(fixed4(255.0/255,198.0/255,99.0/255,1.0)); }
+
+ColorMatch findColorLLRLRLL()
+{
+  fixed diff = targetColor.b - 113.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLRLRL() { return buildColorMatch(fixed4(255.0/255,195.0/255,112.0/255,1.0)); }
+
+ColorMatch findColorLLRLRLRR() { return buildColorMatch(fixed4(255.0/255,185.0/255,98.0/255,1.0)); }
+
+ColorMatch findColorLLRLRLR()
+{
+  fixed diff = targetColor.b - 105.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLRL()
+{
+  fixed diff = targetColor.g - 196.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLRRLL() { return buildColorMatch(fixed4(255.0/255,197.0/255,86.0/255,1.0)); }
+
+ColorMatch findColorLLRLRRLR() { return buildColorMatch(fixed4(255.0/255,175.0/255,83.0/255,1.0)); }
+
+ColorMatch findColorLLRLRRL()
+{
+  fixed diff = targetColor.g - 186.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLRRRL() { return buildColorMatch(fixed4(247.0/255,189.0/255,79.0/255,1.0)); }
+
+ColorMatch findColorLLRLRRRR() { return buildColorMatch(fixed4(241.0/255,167.0/255,54.0/255,1.0)); }
+
+ColorMatch findColorLLRLRRR()
+{
+  fixed diff = targetColor.g - 178.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLRR()
+{
+  fixed diff = targetColor.r - 251.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRLR()
+{
+  fixed diff = targetColor.b - 92.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRL()
+{
+  fixed diff = targetColor.g - 205.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRLLLL() { return buildColorMatch(fixed4(231.0/255,206.0/255,123.0/255,1.0)); }
+
+ColorMatch findColorLLRRLLLR() { return buildColorMatch(fixed4(231.0/255,198.0/255,122.0/255,1.0)); }
+
+ColorMatch findColorLLRRLLL()
+{
+  fixed diff = targetColor.g - 202.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRLLRL() { return buildColorMatch(fixed4(185.0/255,205.0/255,127.0/255,1.0)); }
+
+ColorMatch findColorLLRRLLRR() { return buildColorMatch(fixed4(222.0/255,198.0/255,128.0/255,1.0)); }
+
+ColorMatch findColorLLRRLLR()
+{
+  fixed diff = targetColor.g - 201.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRLL()
+{
+  fixed diff = targetColor.r - 226.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRLRLL() { return buildColorMatch(fixed4(226.0/255,220.0/255,0.0/255,1.0)); }
+
+ColorMatch findColorLLRRLRLR() { return buildColorMatch(fixed4(239.0/255,206.0/255,115.0/255,1.0)); }
+
+ColorMatch findColorLLRRLRL()
+{
+  fixed diff = targetColor.g - 213.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRLRRL() { return buildColorMatch(fixed4(212.0/255,203.0/255,0.0/255,1.0)); }
+
+ColorMatch findColorLLRRLRRR() { return buildColorMatch(fixed4(197.0/255,185.0/255,0.0/255,1.0)); }
+
+ColorMatch findColorLLRRLRR()
+{
+  fixed diff = targetColor.g - 194.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRLR()
+{
+  fixed diff = targetColor.r - 219.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRL()
+{
+  fixed diff = targetColor.b - 118.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRRLLL() { return buildColorMatch(fixed4(228.0/255,178.0/255,80.0/255,1.0)); }
+
+ColorMatch findColorLLRRRLLR() { return buildColorMatch(fixed4(213.0/255,174.0/255,128.0/255,1.0)); }
+
+ColorMatch findColorLLRRRLL()
+{
+  fixed diff = targetColor.g - 176.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRRLRL() { return buildColorMatch(fixed4(159.0/255,183.0/255,101.0/255,1.0)); }
+
+ColorMatch findColorLLRRRLRR() { return buildColorMatch(fixed4(179.0/255,160.0/255,121.0/255,1.0)); }
+
+ColorMatch findColorLLRRRLR()
+{
+  fixed diff = targetColor.g - 171.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRRL()
+{
+  fixed diff = targetColor.r - 196.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRRRLL() { return buildColorMatch(fixed4(206.0/255,159.0/255,73.0/255,1.0)); }
+
+ColorMatch findColorLLRRRRLR() { return buildColorMatch(fixed4(234.0/255,155.0/255,50.0/255,1.0)); }
+
+ColorMatch findColorLLRRRRL()
+{
+  fixed diff = targetColor.g - 157.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRRRRL() { return buildColorMatch(fixed4(183.0/255,168.0/255,0.0/255,1.0)); }
+
+ColorMatch findColorLLRRRRRR() { return buildColorMatch(fixed4(130.0/255,162.0/255,77.0/255,1.0)); }
+
+ColorMatch findColorLLRRRRR()
+{
+  fixed diff = targetColor.g - 165.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRRR()
+{
+  fixed diff = targetColor.r - 194.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRRR()
+{
+  fixed diff = targetColor.b - 78.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLRR()
+{
+  fixed diff = targetColor.g - 184.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLLR()
+{
+  fixed diff = targetColor.r - 240.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLL()
+{
+  fixed diff = targetColor.b - 131.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLLLLL() { return buildColorMatch(fixed4(207.0/255,152.0/255,118.0/255,1.0)); }
+
+ColorMatch findColorLRLLLLLR() { return buildColorMatch(fixed4(204.0/255,146.0/255,170.0/255,1.0)); }
+
+ColorMatch findColorLRLLLLL()
+{
+  fixed diff = targetColor.g - 149.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLLLRL() { return buildColorMatch(fixed4(196.0/255,154.0/255,105.0/255,1.0)); }
+
+ColorMatch findColorLRLLLLRR() { return buildColorMatch(fixed4(188.0/255,127.0/255,158.0/255,1.0)); }
+
+ColorMatch findColorLRLLLLR()
+{
+  fixed diff = targetColor.g - 140.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLLL()
+{
+  fixed diff = targetColor.r - 200.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLLRLL() { return buildColorMatch(fixed4(185.0/255,148.0/255,76.0/255,1.0)); }
+
+ColorMatch findColorLRLLLRLR() { return buildColorMatch(fixed4(193.0/255,133.0/255,100.0/255,1.0)); }
+
+ColorMatch findColorLRLLLRL()
+{
+  fixed diff = targetColor.g - 140.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLLRRL() { return buildColorMatch(fixed4(183.0/255,140.0/255,88.0/255,1.0)); }
+
+ColorMatch findColorLRLLLRRR() { return buildColorMatch(fixed4(173.0/255,127.0/255,78.0/255,1.0)); }
+
+ColorMatch findColorLRLLLRR()
+{
+  fixed diff = targetColor.g - 133.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLLR()
+{
+  fixed diff = targetColor.r - 184.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLL()
+{
+  fixed diff = targetColor.b - 102.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLRLL() { return buildColorMatch(fixed4(180.0/255,113.0/255,80.0/255,1.0)); }
+
+ColorMatch findColorLRLLRLRLL() { return buildColorMatch(fixed4(175.0/255,111.0/255,144.0/255,1.0)); }
+
+ColorMatch findColorLRLLRLRLR() { return buildColorMatch(fixed4(179.0/255,115.0/255,79.0/255,1.0)); }
+
+ColorMatch findColorLRLLRLRL()
+{
+  fixed diff = targetColor.b - 111.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLRLRR() { return buildColorMatch(fixed4(179.0/255,107.0/255,83.0/255,1.0)); }
+
+ColorMatch findColorLRLLRLR()
+{
+  fixed diff = targetColor.g - 109.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLRL()
+{
+  fixed diff = targetColor.r - 179.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLRRLL() { return buildColorMatch(fixed4(175.0/255,111.0/255,75.0/255,1.0)); }
+
+ColorMatch findColorLRLLRRLR() { return buildColorMatch(fixed4(175.0/255,95.0/255,75.0/255,1.0)); }
+
+ColorMatch findColorLRLLRRL()
+{
+  fixed diff = targetColor.g - 103.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLRRR() { return buildColorMatch(fixed4(171.0/255,107.0/255,71.0/255,1.0)); }
+
+ColorMatch findColorLRLLRR()
+{
+  fixed diff = targetColor.r - 173.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLLR()
+{
+  fixed diff = targetColor.b - 77.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLL()
+{
+  fixed diff = targetColor.g - 121.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRLLLL() { return buildColorMatch(fixed4(147.0/255,147.0/255,147.0/255,1.0)); }
+
+ColorMatch findColorLRLRLLLR() { return buildColorMatch(fixed4(145.0/255,145.0/255,159.0/255,1.0)); }
+
+ColorMatch findColorLRLRLLL()
+{
+  fixed diff = targetColor.g - 146.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRLLRL() { return buildColorMatch(fixed4(135.0/255,135.0/255,149.0/255,1.0)); }
+
+ColorMatch findColorLRLRLLRR() { return buildColorMatch(fixed4(132.0/255,132.0/255,132.0/255,1.0)); }
+
+ColorMatch findColorLRLRLLR()
+{
+  fixed diff = targetColor.g - 133.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRLL()
+{
+  fixed diff = targetColor.r - 140.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRLRLL() { return buildColorMatch(fixed4(161.0/255,147.0/255,125.0/255,1.0)); }
+
+ColorMatch findColorLRLRLRLR() { return buildColorMatch(fixed4(164.0/255,141.0/255,94.0/255,1.0)); }
+
+ColorMatch findColorLRLRLRL()
+{
+  fixed diff = targetColor.g - 144.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRLRRL() { return buildColorMatch(fixed4(140.0/255,129.0/255,119.0/255,1.0)); }
+
+ColorMatch findColorLRLRLRRR() { return buildColorMatch(fixed4(137.0/255,121.0/255,94.0/255,1.0)); }
+
+ColorMatch findColorLRLRLRR()
+{
+  fixed diff = targetColor.g - 125.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRLR()
+{
+  fixed diff = targetColor.r - 150.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRL()
+{
+  fixed diff = targetColor.b - 128.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRRLLL() { return buildColorMatch(fixed4(155.0/255,98.0/255,130.0/255,1.0)); }
+
+ColorMatch findColorLRLRRLLR() { return buildColorMatch(fixed4(143.0/255,84.0/255,119.0/255,1.0)); }
+
+ColorMatch findColorLRLRRLL()
+{
+  fixed diff = targetColor.g - 91.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRRLRL() { return buildColorMatch(fixed4(132.0/255,119.0/255,107.0/255,1.0)); }
+
+ColorMatch findColorLRLRRLRR() { return buildColorMatch(fixed4(132.0/255,114.0/255,82.0/255,1.0)); }
+
+ColorMatch findColorLRLRRLR()
+{
+  fixed diff = targetColor.g - 116.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRRL()
+{
+  fixed diff = targetColor.r - 137.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRRRLL() { return buildColorMatch(fixed4(160.0/255,118.0/255,74.0/255,1.0)); }
+
+ColorMatch findColorLRLRRRLR() { return buildColorMatch(fixed4(165.0/255,100.0/255,70.0/255,1.0)); }
+
+ColorMatch findColorLRLRRRL()
+{
+  fixed diff = targetColor.g - 109.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRRRR() { return buildColorMatch(fixed4(151.0/255,110.0/255,69.0/255,1.0)); }
+
+ColorMatch findColorLRLRRR()
+{
+  fixed diff = targetColor.r - 155.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLRR()
+{
+  fixed diff = targetColor.b - 78.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRLR()
+{
+  fixed diff = targetColor.g - 120.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRL()
+{
+  fixed diff = targetColor.r - 168.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLLLLL() { return buildColorMatch(fixed4(226.0/255,143.0/255,46.0/255,1.0)); }
+
+ColorMatch findColorLRRLLLLR() { return buildColorMatch(fixed4(167.0/255,103.0/255,67.0/255,1.0)); }
+
+ColorMatch findColorLRRLLLL()
+{
+  fixed diff = targetColor.g - 123.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLLLRL() { return buildColorMatch(fixed4(164.0/255,130.0/255,67.0/255,1.0)); }
+
+ColorMatch findColorLRRLLLRR() { return buildColorMatch(fixed4(159.0/255,99.0/255,63.0/255,1.0)); }
+
+ColorMatch findColorLRRLLLR()
+{
+  fixed diff = targetColor.g - 114.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLLL()
+{
+  fixed diff = targetColor.r - 165.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLLRLL() { return buildColorMatch(fixed4(219.0/255,131.0/255,43.0/255,1.0)); }
+
+ColorMatch findColorLRRLLRLR() { return buildColorMatch(fixed4(212.0/255,119.0/255,39.0/255,1.0)); }
+
+ColorMatch findColorLRRLLRL()
+{
+  fixed diff = targetColor.g - 125.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLLRRL() { return buildColorMatch(fixed4(168.0/255,150.0/255,0.0/255,1.0)); }
+
+ColorMatch findColorLRRLLRRR() { return buildColorMatch(fixed4(205.0/255,107.0/255,35.0/255,1.0)); }
+
+ColorMatch findColorLRRLLRR()
+{
+  fixed diff = targetColor.g - 128.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLLR()
+{
+  fixed diff = targetColor.r - 208.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLL()
+{
+  fixed diff = targetColor.b - 44.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLRLLL() { return buildColorMatch(fixed4(198.0/255,95.0/255,31.0/255,1.0)); }
+
+ColorMatch findColorLRRLRLLR() { return buildColorMatch(fixed4(190.0/255,84.0/255,27.0/255,1.0)); }
+
+ColorMatch findColorLRRLRLL()
+{
+  fixed diff = targetColor.g - 89.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLRLRL() { return buildColorMatch(fixed4(175.0/255,87.0/255,67.0/255,1.0)); }
+
+ColorMatch findColorLRRLRLRR() { return buildColorMatch(fixed4(163.0/255,79.0/255,59.0/255,1.0)); }
+
+ColorMatch findColorLRRLRLR()
+{
+  fixed diff = targetColor.g - 83.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLRL()
+{
+  fixed diff = targetColor.r - 182.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLRRLL() { return buildColorMatch(fixed4(183.0/255,72.0/255,23.0/255,1.0)); }
+
+ColorMatch findColorLRRLRRLR() { return buildColorMatch(fixed4(176.0/255,60.0/255,19.0/255,1.0)); }
+
+ColorMatch findColorLRRLRRL()
+{
+  fixed diff = targetColor.g - 66.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLRRRL() { return buildColorMatch(fixed4(169.0/255,48.0/255,15.0/255,1.0)); }
+
+ColorMatch findColorLRRLRRRR() { return buildColorMatch(fixed4(162.0/255,36.0/255,12.0/255,1.0)); }
+
+ColorMatch findColorLRRLRRR()
+{
+  fixed diff = targetColor.g - 42.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLRR()
+{
+  fixed diff = targetColor.r - 172.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRLR()
+{
+  fixed diff = targetColor.b - 25.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRL()
+{
+  fixed diff = targetColor.g - 97.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRLLLLL() { return buildColorMatch(fixed4(152.0/255,93.0/255,63.0/255,1.0)); }
+
+ColorMatch findColorLRRRLLLLR() { return buildColorMatch(fixed4(155.0/255,95.0/255,59.0/255,1.0)); }
+
+ColorMatch findColorLRRRLLLL()
+{
+  fixed diff = targetColor.b - 61.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRLLLR() { return buildColorMatch(fixed4(151.0/255,91.0/255,55.0/255,1.0)); }
+
+ColorMatch findColorLRRRLLL()
+{
+  fixed diff = targetColor.g - 92.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRLLRL() { return buildColorMatch(fixed4(137.0/255,112.0/255,66.0/255,1.0)); }
+
+ColorMatch findColorLRRRLLRR() { return buildColorMatch(fixed4(134.0/255,103.0/255,65.0/255,1.0)); }
+
+ColorMatch findColorLRRRLLR()
+{
+  fixed diff = targetColor.g - 107.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRLL()
+{
+  fixed diff = targetColor.r - 144.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRLRLL() { return buildColorMatch(fixed4(154.0/255,133.0/255,0.0/255,1.0)); }
+
+ColorMatch findColorLRRRLRLR() { return buildColorMatch(fixed4(155.0/255,91.0/255,47.0/255,1.0)); }
+
+ColorMatch findColorLRRRLRL()
+{
+  fixed diff = targetColor.g - 112.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRLRRL() { return buildColorMatch(fixed4(139.0/255,115.0/255,0.0/255,1.0)); }
+
+ColorMatch findColorLRRRLRRR() { return buildColorMatch(fixed4(143.0/255,87.0/255,51.0/255,1.0)); }
+
+ColorMatch findColorLRRRLRR()
+{
+  fixed diff = targetColor.g - 101.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRLR()
+{
+  fixed diff = targetColor.r - 148.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRL()
+{
+  fixed diff = targetColor.b - 53.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRRLLL() { return buildColorMatch(fixed4(155.0/255,75.0/255,51.0/255,1.0)); }
+
+ColorMatch findColorLRRRRLLR() { return buildColorMatch(fixed4(147.0/255,71.0/255,47.0/255,1.0)); }
+
+ColorMatch findColorLRRRRLL()
+{
+  fixed diff = targetColor.g - 73.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRRLRL() { return buildColorMatch(fixed4(140.0/255,86.0/255,55.0/255,1.0)); }
+
+ColorMatch findColorLRRRRLRR() { return buildColorMatch(fixed4(129.0/255,79.0/255,48.0/255,1.0)); }
+
+ColorMatch findColorLRRRRLR()
+{
+  fixed diff = targetColor.g - 82.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRRL()
+{
+  fixed diff = targetColor.r - 143.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRRRLL() { return buildColorMatch(fixed4(154.0/255,24.0/255,8.0/255,1.0)); }
+
+ColorMatch findColorLRRRRRLR() { return buildColorMatch(fixed4(147.0/255,12.0/255,4.0/255,1.0)); }
+
+ColorMatch findColorLRRRRRL()
+{
+  fixed diff = targetColor.g - 18.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRRRRL() { return buildColorMatch(fixed4(139.0/255,83.0/255,43.0/255,1.0)); }
+
+ColorMatch findColorLRRRRRRR() { return buildColorMatch(fixed4(130.0/255,22.0/255,0.0/255,1.0)); }
+
+ColorMatch findColorLRRRRRR()
+{
+  fixed diff = targetColor.g - 52.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRRR()
+{
+  fixed diff = targetColor.r - 143.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRRR()
+{
+  fixed diff = targetColor.b - 45.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRRR()
+{
+  fixed diff = targetColor.g - 86.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLRR()
+{
+  fixed diff = targetColor.r - 155.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorLR()
+{
+  fixed diff = targetColor.b - 67.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorL()
+{
+  fixed diff = targetColor.g - 154.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLLLLL() { return buildColorMatch(fixed4(123.0/255,164.0/255,230.0/255,1.0)); }
+
+ColorMatch findColorRLLLLLLR() { return buildColorMatch(fixed4(122.0/255,122.0/255,137.0/255,1.0)); }
+
+ColorMatch findColorRLLLLLL()
+{
+  fixed diff = targetColor.g - 143.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLLLRL() { return buildColorMatch(fixed4(109.0/255,170.0/255,170.0/255,1.0)); }
+
+ColorMatch findColorRLLLLLRR() { return buildColorMatch(fixed4(104.0/255,152.0/255,217.0/255,1.0)); }
+
+ColorMatch findColorRLLLLLR()
+{
+  fixed diff = targetColor.g - 161.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLLL()
+{
+  fixed diff = targetColor.r - 115.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLLRLL() { return buildColorMatch(fixed4(123.0/255,156.0/255,118.0/255,1.0)); }
+
+ColorMatch findColorRLLLLRLR() { return buildColorMatch(fixed4(119.0/255,119.0/255,119.0/255,1.0)); }
+
+ColorMatch findColorRLLLLRL()
+{
+  fixed diff = targetColor.g - 137.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLLRRL() { return buildColorMatch(fixed4(107.0/255,144.0/255,109.0/255,1.0)); }
+
+ColorMatch findColorRLLLLRRR() { return buildColorMatch(fixed4(93.0/255,130.0/255,94.0/255,1.0)); }
+
+ColorMatch findColorRLLLLRR()
+{
+  fixed diff = targetColor.g - 137.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLLR()
+{
+  fixed diff = targetColor.r - 113.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLL()
+{
+  fixed diff = targetColor.b - 128.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLRLLL() { return buildColorMatch(fixed4(114.0/255,114.0/255,127.0/255,1.0)); }
+
+ColorMatch findColorRLLLRLLR() { return buildColorMatch(fixed4(110.0/255,110.0/255,110.0/255,1.0)); }
+
+ColorMatch findColorRLLLRLL()
+{
+  fixed diff = targetColor.g - 112.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLRLRL() { return buildColorMatch(fixed4(103.0/255,103.0/255,116.0/255,1.0)); }
+
+ColorMatch findColorRLLLRLRR() { return buildColorMatch(fixed4(94.0/255,94.0/255,109.0/255,1.0)); }
+
+ColorMatch findColorRLLLRLR()
+{
+  fixed diff = targetColor.g - 98.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLRL()
+{
+  fixed diff = targetColor.r - 106.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLRRLL() { return buildColorMatch(fixed4(118.0/255,105.0/255,93.0/255,1.0)); }
+
+ColorMatch findColorRLLLRRLR() { return buildColorMatch(fixed4(127.0/255,77.0/255,106.0/255,1.0)); }
+
+ColorMatch findColorRLLLRRL()
+{
+  fixed diff = targetColor.g - 91.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLRRRL() { return buildColorMatch(fixed4(99.0/255,99.0/255,99.0/255,1.0)); }
+
+ColorMatch findColorRLLLRRRR() { return buildColorMatch(fixed4(109.0/255,69.0/255,102.0/255,1.0)); }
+
+ColorMatch findColorRLLLRRR()
+{
+  fixed diff = targetColor.g - 84.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLRR()
+{
+  fixed diff = targetColor.r - 113.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLLR()
+{
+  fixed diff = targetColor.b - 107.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLL()
+{
+  fixed diff = targetColor.g - 116.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRLLLL() { return buildColorMatch(fixed4(87.0/255,154.0/255,154.0/255,1.0)); }
+
+ColorMatch findColorRLLRLLLR() { return buildColorMatch(fixed4(87.0/255,137.0/255,205.0/255,1.0)); }
+
+ColorMatch findColorRLLRLLL()
+{
+  fixed diff = targetColor.g - 145.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRLLRL() { return buildColorMatch(fixed4(68.0/255,124.0/255,192.0/255,1.0)); }
+
+ColorMatch findColorRLLRLLRR() { return buildColorMatch(fixed4(68.0/255,112.0/255,179.0/255,1.0)); }
+
+ColorMatch findColorRLLRLLR()
+{
+  fixed diff = targetColor.g - 118.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRLL()
+{
+  fixed diff = targetColor.r - 77.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRLRLL() { return buildColorMatch(fixed4(77.0/255,142.0/255,142.0/255,1.0)); }
+
+ColorMatch findColorRLLRLRLR() { return buildColorMatch(fixed4(70.0/255,135.0/255,135.0/255,1.0)); }
+
+ColorMatch findColorRLLRLRL()
+{
+  fixed diff = targetColor.g - 138.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRLRRL() { return buildColorMatch(fixed4(62.0/255,124.0/255,124.0/255,1.0)); }
+
+ColorMatch findColorRLLRLRRR() { return buildColorMatch(fixed4(54.0/255,112.0/255,112.0/255,1.0)); }
+
+ColorMatch findColorRLLRLRR()
+{
+  fixed diff = targetColor.g - 118.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRLR()
+{
+  fixed diff = targetColor.r - 66.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRL()
+{
+  fixed diff = targetColor.b - 148.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRRLLL() { return buildColorMatch(fixed4(62.0/255,105.0/255,167.0/255,1.0)); }
+
+ColorMatch findColorRLLRRLLR() { return buildColorMatch(fixed4(55.0/255,97.0/255,154.0/255,1.0)); }
+
+ColorMatch findColorRLLRRLL()
+{
+  fixed diff = targetColor.g - 101.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRRLRL() { return buildColorMatch(fixed4(49.0/255,90.0/255,142.0/255,1.0)); }
+
+ColorMatch findColorRLLRRLRR() { return buildColorMatch(fixed4(45.0/255,82.0/255,122.0/255,1.0)); }
+
+ColorMatch findColorRLLRRLR()
+{
+  fixed diff = targetColor.g - 86.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRRL()
+{
+  fixed diff = targetColor.r - 52.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRRRLL() { return buildColorMatch(fixed4(85.0/255,85.0/255,96.0/255,1.0)); }
+
+ColorMatch findColorRLLRRRLR() { return buildColorMatch(fixed4(51.0/255,77.0/255,102.0/255,1.0)); }
+
+ColorMatch findColorRLLRRRL()
+{
+  fixed diff = targetColor.g - 81.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRRRRL() { return buildColorMatch(fixed4(46.0/255,103.0/255,103.0/255,1.0)); }
+
+ColorMatch findColorRLLRRRRR() { return buildColorMatch(fixed4(39.0/255,91.0/255,91.0/255,1.0)); }
+
+ColorMatch findColorRLLRRRR()
+{
+  fixed diff = targetColor.g - 97.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRRR()
+{
+  fixed diff = targetColor.r - 48.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLRR()
+{
+  fixed diff = targetColor.b - 112.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLLR()
+{
+  fixed diff = targetColor.g - 108.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLL()
+{
+  fixed diff = targetColor.r - 90.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLLLLL() { return buildColorMatch(fixed4(112.0/255,94.0/255,72.0/255,1.0)); }
+
+ColorMatch findColorRLRLLLLR() { return buildColorMatch(fixed4(123.0/255,92.0/255,60.0/255,1.0)); }
+
+ColorMatch findColorRLRLLLL()
+{
+  fixed diff = targetColor.g - 93.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLLLRL() { return buildColorMatch(fixed4(109.0/255,146.0/255,66.0/255,1.0)); }
+
+ColorMatch findColorRLRLLLRR() { return buildColorMatch(fixed4(101.0/255,137.0/255,60.0/255,1.0)); }
+
+ColorMatch findColorRLRLLLR()
+{
+  fixed diff = targetColor.g - 141.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLLL()
+{
+  fixed diff = targetColor.r - 110.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLLRLL() { return buildColorMatch(fixed4(127.0/255,106.0/255,4.0/255,1.0)); }
+
+ColorMatch findColorRLRLLRLR() { return buildColorMatch(fixed4(116.0/255,97.0/255,7.0/255,1.0)); }
+
+ColorMatch findColorRLRLLRL()
+{
+  fixed diff = targetColor.g - 101.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLLRRL() { return buildColorMatch(fixed4(92.0/255,127.0/255,54.0/255,1.0)); }
+
+ColorMatch findColorRLRLLRRR() { return buildColorMatch(fixed4(84.0/255,118.0/255,48.0/255,1.0)); }
+
+ColorMatch findColorRLRLLRR()
+{
+  fixed diff = targetColor.g - 122.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLLR()
+{
+  fixed diff = targetColor.r - 104.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLL()
+{
+  fixed diff = targetColor.b - 57.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLRLLL() { return buildColorMatch(fixed4(109.0/255,85.0/255,54.0/255,1.0)); }
+
+ColorMatch findColorRLRLRLLR() { return buildColorMatch(fixed4(122.0/255,75.0/255,43.0/255,1.0)); }
+
+ColorMatch findColorRLRLRLL()
+{
+  fixed diff = targetColor.g - 80.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLRLRL() { return buildColorMatch(fixed4(87.0/255,87.0/255,87.0/255,1.0)); }
+
+ColorMatch findColorRLRLRLRR() { return buildColorMatch(fixed4(96.0/255,76.0/255,51.0/255,1.0)); }
+
+ColorMatch findColorRLRLRLR()
+{
+  fixed diff = targetColor.g - 81.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLRL()
+{
+  fixed diff = targetColor.r - 102.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLRRLL() { return buildColorMatch(fixed4(127.0/255,75.0/255,39.0/255,1.0)); }
+
+ColorMatch findColorRLRLRRLR() { return buildColorMatch(fixed4(112.0/255,70.0/255,40.0/255,1.0)); }
+
+ColorMatch findColorRLRLRRL()
+{
+  fixed diff = targetColor.g - 72.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLRRRL() { return buildColorMatch(fixed4(104.0/255,87.0/255,11.0/255,1.0)); }
+
+ColorMatch findColorRLRLRRRR() { return buildColorMatch(fixed4(93.0/255,78.0/255,14.0/255,1.0)); }
+
+ColorMatch findColorRLRLRRR()
+{
+  fixed diff = targetColor.g - 82.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLRR()
+{
+  fixed diff = targetColor.r - 108.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRLR()
+{
+  fixed diff = targetColor.b - 41.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRL()
+{
+  fixed diff = targetColor.g - 89.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRLLLL() { return buildColorMatch(fixed4(82.0/255,116.0/255,86.0/255,1.0)); }
+
+ColorMatch findColorRLRRLLLR() { return buildColorMatch(fixed4(77.0/255,110.0/255,78.0/255,1.0)); }
+
+ColorMatch findColorRLRRLLL()
+{
+  fixed diff = targetColor.g - 113.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRLLRL() { return buildColorMatch(fixed4(68.0/255,99.0/255,67.0/255,1.0)); }
+
+ColorMatch findColorRLRRLLRR() { return buildColorMatch(fixed4(40.0/255,83.0/255,83.0/255,1.0)); }
+
+ColorMatch findColorRLRRLLR()
+{
+  fixed diff = targetColor.g - 91.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRLL()
+{
+  fixed diff = targetColor.r - 72.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRLRLL() { return buildColorMatch(fixed4(76.0/255,108.0/255,42.0/255,1.0)); }
+
+ColorMatch findColorRLRRLRLR() { return buildColorMatch(fixed4(65.0/255,98.0/255,37.0/255,1.0)); }
+
+ColorMatch findColorRLRRLRL()
+{
+  fixed diff = targetColor.g - 103.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRLRRL() { return buildColorMatch(fixed4(61.0/255,89.0/255,53.0/255,1.0)); }
+
+ColorMatch findColorRLRRLRRR() { return buildColorMatch(fixed4(53.0/255,87.0/255,34.0/255,1.0)); }
+
+ColorMatch findColorRLRRLRR()
+{
+  fixed diff = targetColor.g - 88.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRLR()
+{
+  fixed diff = targetColor.r - 63.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRL()
+{
+  fixed diff = targetColor.b - 60.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRRLLL() { return buildColorMatch(fixed4(78.0/255,78.0/255,78.0/255,1.0)); }
+
+ColorMatch findColorRLRRRLLR() { return buildColorMatch(fixed4(75.0/255,75.0/255,85.0/255,1.0)); }
+
+ColorMatch findColorRLRRRLL()
+{
+  fixed diff = targetColor.g - 76.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRRLRL() { return buildColorMatch(fixed4(45.0/255,72.0/255,72.0/255,1.0)); }
+
+ColorMatch findColorRLRRRLRR() { return buildColorMatch(fixed4(52.0/255,69.0/255,87.0/255,1.0)); }
+
+ColorMatch findColorRLRRRLR()
+{
+  fixed diff = targetColor.g - 70.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRRL()
+{
+  fixed diff = targetColor.r - 63.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRRRLL() { return buildColorMatch(fixed4(83.0/255,71.0/255,44.0/255,1.0)); }
+
+ColorMatch findColorRLRRRRLR() { return buildColorMatch(fixed4(81.0/255,69.0/255,18.0/255,1.0)); }
+
+ColorMatch findColorRLRRRRL()
+{
+  fixed diff = targetColor.g - 70.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRRRRL() { return buildColorMatch(fixed4(52.0/255,77.0/255,45.0/255,1.0)); }
+
+ColorMatch findColorRLRRRRRR() { return buildColorMatch(fixed4(51.0/255,75.0/255,35.0/255,1.0)); }
+
+ColorMatch findColorRLRRRRR()
+{
+  fixed diff = targetColor.g - 76.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRRR()
+{
+  fixed diff = targetColor.r - 66.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRRR()
+{
+  fixed diff = targetColor.b - 58.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLRR()
+{
+  fixed diff = targetColor.g - 80.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRLR()
+{
+  fixed diff = targetColor.r - 83.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRL()
+{
+  fixed diff = targetColor.b - 89.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLLLLL() { return buildColorMatch(fixed4(101.0/255,65.0/255,96.0/255,1.0)); }
+
+ColorMatch findColorRRLLLLLR() { return buildColorMatch(fixed4(86.0/255,58.0/255,77.0/255,1.0)); }
+
+ColorMatch findColorRRLLLLL()
+{
+  fixed diff = targetColor.g - 61.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLLLR() { return buildColorMatch(fixed4(68.0/255,68.0/255,80.0/255,1.0)); }
+
+ColorMatch findColorRRLLLL()
+{
+  fixed diff = targetColor.r - 77.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLLRLL() { return buildColorMatch(fixed4(67.0/255,67.0/255,67.0/255,1.0)); }
+
+ColorMatch findColorRRLLLRLRL() { return buildColorMatch(fixed4(79.0/255,63.0/255,43.0/255,1.0)); }
+
+ColorMatch findColorRRLLLRLRR() { return buildColorMatch(fixed4(69.0/255,63.0/255,42.0/255,1.0)); }
+
+ColorMatch findColorRRLLLRLR()
+{
+  fixed diff = targetColor.b - 42.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLLRL()
+{
+  fixed diff = targetColor.g - 63.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLLRRL() { return buildColorMatch(fixed4(61.0/255,61.0/255,67.0/255,1.0)); }
+
+ColorMatch findColorRRLLLRRR() { return buildColorMatch(fixed4(58.0/255,58.0/255,58.0/255,1.0)); }
+
+ColorMatch findColorRRLLLRR()
+{
+  fixed diff = targetColor.g - 59.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLLR()
+{
+  fixed diff = targetColor.r - 64.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLL()
+{
+  fixed diff = targetColor.b - 67.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLRLLL() { return buildColorMatch(fixed4(75.0/255,52.0/255,71.0/255,1.0)); }
+
+ColorMatch findColorRRLLRLLR() { return buildColorMatch(fixed4(67.0/255,51.0/255,63.0/255,1.0)); }
+
+ColorMatch findColorRRLLRLL()
+{
+  fixed diff = targetColor.g - 51.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLRLRL() { return buildColorMatch(fixed4(53.0/255,53.0/255,59.0/255,1.0)); }
+
+ColorMatch findColorRRLLRLRR() { return buildColorMatch(fixed4(63.0/255,47.0/255,56.0/255,1.0)); }
+
+ColorMatch findColorRRLLRLR()
+{
+  fixed diff = targetColor.g - 50.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLRL()
+{
+  fixed diff = targetColor.r - 65.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLRRLL() { return buildColorMatch(fixed4(66.0/255,54.0/255,41.0/255,1.0)); }
+
+ColorMatch findColorRRLLRRLR() { return buildColorMatch(fixed4(56.0/255,45.0/255,52.0/255,1.0)); }
+
+ColorMatch findColorRRLLRRL()
+{
+  fixed diff = targetColor.g - 49.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLRRR() { return buildColorMatch(fixed4(54.0/255,50.0/255,40.0/255,1.0)); }
+
+ColorMatch findColorRRLLRR()
+{
+  fixed diff = targetColor.r - 55.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLLR()
+{
+  fixed diff = targetColor.b - 54.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLL()
+{
+  fixed diff = targetColor.g - 56.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRLLL() { return buildColorMatch(fixed4(50.0/255,62.0/255,73.0/255,1.0)); }
+
+ColorMatch findColorRRLRLLRL() { return buildColorMatch(fixed4(47.0/255,63.0/255,63.0/255,1.0)); }
+
+ColorMatch findColorRRLRLLRR() { return buildColorMatch(fixed4(47.0/255,59.0/255,60.0/255,1.0)); }
+
+ColorMatch findColorRRLRLLR()
+{
+  fixed diff = targetColor.g - 61.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRLL()
+{
+  fixed diff = targetColor.r - 47.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRLRLL() { return buildColorMatch(fixed4(50.0/255,55.0/255,55.0/255,1.0)); }
+
+ColorMatch findColorRRLRLRLR() { return buildColorMatch(fixed4(51.0/255,51.0/255,51.0/255,1.0)); }
+
+ColorMatch findColorRRLRLRL()
+{
+  fixed diff = targetColor.g - 53.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRLRR() { return buildColorMatch(fixed4(38.0/255,51.0/255,40.0/255,1.0)); }
+
+ColorMatch findColorRRLRLR()
+{
+  fixed diff = targetColor.r - 44.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRL()
+{
+  fixed diff = targetColor.b - 57.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRRLLL() { return buildColorMatch(fixed4(48.0/255,48.0/255,50.0/255,1.0)); }
+
+ColorMatch findColorRRLRRLLR() { return buildColorMatch(fixed4(46.0/255,44.0/255,46.0/255,1.0)); }
+
+ColorMatch findColorRRLRRLL()
+{
+  fixed diff = targetColor.g - 46.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRRLRL() { return buildColorMatch(fixed4(44.0/255,48.0/255,49.0/255,1.0)); }
+
+ColorMatch findColorRRLRRLRR() { return buildColorMatch(fixed4(45.0/255,48.0/255,48.0/255,1.0)); }
+
+ColorMatch findColorRRLRRLR()
+{
+  fixed diff = targetColor.b - 48.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRRL()
+{
+  fixed diff = targetColor.r - 45.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRRRLL() { return buildColorMatch(fixed4(43.0/255,46.0/255,45.0/255,1.0)); }
+
+ColorMatch findColorRRLRRRLRL() { return buildColorMatch(fixed4(44.0/255,44.0/255,45.0/255,1.0)); }
+
+ColorMatch findColorRRLRRRLRR() { return buildColorMatch(fixed4(44.0/255,44.0/255,44.0/255,1.0)); }
+
+ColorMatch findColorRRLRRRLR()
+{
+  fixed diff = targetColor.b - 44.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRRRL()
+{
+  fixed diff = targetColor.g - 44.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRRRRL() { return buildColorMatch(fixed4(40.0/255,47.0/255,40.0/255,1.0)); }
+
+ColorMatch findColorRRLRRRRR() { return buildColorMatch(fixed4(40.0/255,40.0/255,40.0/255,1.0)); }
+
+ColorMatch findColorRRLRRRR()
+{
+  fixed diff = targetColor.g - 43.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRRR()
+{
+  fixed diff = targetColor.r - 41.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLRR()
+{
+  fixed diff = targetColor.b - 45.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRLR()
+{
+  fixed diff = targetColor.g - 48.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRL()
+{
+  fixed diff = targetColor.r - 52.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLLLLLL() { return buildColorMatch(fixed4(103.0/255,64.0/255,39.0/255,1.0)); }
+
+ColorMatch findColorRRRLLLLLR() { return buildColorMatch(fixed4(115.0/255,67.0/255,35.0/255,1.0)); }
+
+ColorMatch findColorRRRLLLLL()
+{
+  fixed diff = targetColor.b - 37.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLLLLR() { return buildColorMatch(fixed4(99.0/255,63.0/255,31.0/255,1.0)); }
+
+ColorMatch findColorRRRLLLL()
+{
+  fixed diff = targetColor.g - 63.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLLLRL() { return buildColorMatch(fixed4(91.0/255,67.0/255,38.0/255,1.0)); }
+
+ColorMatch findColorRRRLLLRR() { return buildColorMatch(fixed4(61.0/255,54.0/255,38.0/255,1.0)); }
+
+ColorMatch findColorRRRLLLR()
+{
+  fixed diff = targetColor.g - 60.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLLL()
+{
+  fixed diff = targetColor.r - 95.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLLRLL() { return buildColorMatch(fixed4(87.0/255,55.0/255,27.0/255,1.0)); }
+
+ColorMatch findColorRRRLLRLR() { return buildColorMatch(fixed4(75.0/255,47.0/255,23.0/255,1.0)); }
+
+ColorMatch findColorRRRLLRL()
+{
+  fixed diff = targetColor.g - 51.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLLRRL() { return buildColorMatch(fixed4(69.0/255,60.0/255,21.0/255,1.0)); }
+
+ColorMatch findColorRRRLLRRR() { return buildColorMatch(fixed4(58.0/255,51.0/255,25.0/255,1.0)); }
+
+ColorMatch findColorRRRLLRR()
+{
+  fixed diff = targetColor.g - 55.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLLR()
+{
+  fixed diff = targetColor.r - 72.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLL()
+{
+  fixed diff = targetColor.b - 29.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLRLLL() { return buildColorMatch(fixed4(65.0/255,41.0/255,33.0/255,1.0)); }
+
+ColorMatch findColorRRRLRLLR() { return buildColorMatch(fixed4(74.0/255,39.0/255,27.0/255,1.0)); }
+
+ColorMatch findColorRRRLRLL()
+{
+  fixed diff = targetColor.g - 40.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLRLRL() { return buildColorMatch(fixed4(57.0/255,43.0/255,39.0/255,1.0)); }
+
+ColorMatch findColorRRRLRLRR() { return buildColorMatch(fixed4(59.0/255,39.0/255,19.0/255,1.0)); }
+
+ColorMatch findColorRRRLRLR()
+{
+  fixed diff = targetColor.g - 41.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLRL()
+{
+  fixed diff = targetColor.r - 62.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLRRLL() { return buildColorMatch(fixed4(111.0/255,34.0/255,0.0/255,1.0)); }
+
+ColorMatch findColorRRRLRRLR() { return buildColorMatch(fixed4(102.0/255,33.0/255,1.0/255,1.0)); }
+
+ColorMatch findColorRRRLRRL()
+{
+  fixed diff = targetColor.g - 33.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLRRRL() { return buildColorMatch(fixed4(92.0/255,33.0/255,3.0/255,1.0)); }
+
+ColorMatch findColorRRRLRRRR() { return buildColorMatch(fixed4(83.0/255,32.0/255,10.0/255,1.0)); }
+
+ColorMatch findColorRRRLRRR()
+{
+  fixed diff = targetColor.g - 32.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLRR()
+{
+  fixed diff = targetColor.r - 97.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRLR()
+{
+  fixed diff = targetColor.b - 14.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRL()
+{
+  fixed diff = targetColor.g - 45.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRLLLLL() { return buildColorMatch(fixed4(46.0/255,68.0/255,37.0/255,1.0)); }
+
+ColorMatch findColorRRRRLLLLR() { return buildColorMatch(fixed4(45.0/255,64.0/255,37.0/255,1.0)); }
+
+ColorMatch findColorRRRRLLLL()
+{
+  fixed diff = targetColor.r - 45.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRLLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRLLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRLLLR() { return buildColorMatch(fixed4(43.0/255,56.0/255,39.0/255,1.0)); }
+
+ColorMatch findColorRRRRLLL()
+{
+  fixed diff = targetColor.g - 60.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRLLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRLLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRLLRL() { return buildColorMatch(fixed4(39.0/255,60.0/255,39.0/255,1.0)); }
+
+ColorMatch findColorRRRRLLRR() { return buildColorMatch(fixed4(38.0/255,38.0/255,38.0/255,1.0)); }
+
+ColorMatch findColorRRRRLLR()
+{
+  fixed diff = targetColor.g - 49.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRLLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRLLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRLL()
+{
+  fixed diff = targetColor.r - 41.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRLRLL() { return buildColorMatch(fixed4(50.0/255,45.0/255,34.0/255,1.0)); }
+
+ColorMatch findColorRRRRLRLR() { return buildColorMatch(fixed4(35.0/255,35.0/255,35.0/255,1.0)); }
+
+ColorMatch findColorRRRRLRL()
+{
+  fixed diff = targetColor.g - 40.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRLRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRLRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRLRRL() { return buildColorMatch(fixed4(30.0/255,55.0/255,30.0/255,1.0)); }
+
+ColorMatch findColorRRRRLRRR() { return buildColorMatch(fixed4(34.0/255,51.0/255,34.0/255,1.0)); }
+
+ColorMatch findColorRRRRLRR()
+{
+  fixed diff = targetColor.g - 53.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRLRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRLRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRLR()
+{
+  fixed diff = targetColor.r - 34.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRL()
+{
+  fixed diff = targetColor.b - 36.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRRLLL() { return buildColorMatch(fixed4(31.0/255,31.0/255,31.0/255,1.0)); }
+
+ColorMatch findColorRRRRRLLR() { return buildColorMatch(fixed4(27.0/255,27.0/255,27.0/255,1.0)); }
+
+ColorMatch findColorRRRRRLL()
+{
+  fixed diff = targetColor.g - 29.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRRLLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRLLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRRLLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRLLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRRLRL() { return buildColorMatch(fixed4(23.0/255,23.0/255,23.0/255,1.0)); }
+
+ColorMatch findColorRRRRRLRR() { return buildColorMatch(fixed4(19.0/255,19.0/255,19.0/255,1.0)); }
+
+ColorMatch findColorRRRRRLR()
+{
+  fixed diff = targetColor.g - 21.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRRLRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRLRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRRLRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRLRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRRL()
+{
+  fixed diff = targetColor.r - 25.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRRRLL() { return buildColorMatch(fixed4(47.0/255,31.0/255,15.0/255,1.0)); }
+
+ColorMatch findColorRRRRRRLR() { return buildColorMatch(fixed4(35.0/255,23.0/255,11.0/255,1.0)); }
+
+ColorMatch findColorRRRRRRL()
+{
+  fixed diff = targetColor.g - 27.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRRRLL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRRLR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRRRLR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRRLL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRRRRL() { return buildColorMatch(fixed4(15.0/255,15.0/255,15.0/255,1.0)); }
+
+ColorMatch findColorRRRRRRRR() { return buildColorMatch(fixed4(0.0/255,0.0/255,0.0/255,1.0)); }
+
+ColorMatch findColorRRRRRRR()
+{
+  fixed diff = targetColor.g - 7.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRRR()
+{
+  fixed diff = targetColor.r - 25.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRRR()
+{
+  fixed diff = targetColor.b - 17.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRRR()
+{
+  fixed diff = targetColor.g - 33.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRRR()
+{
+  fixed diff = targetColor.r - 53.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorRR()
+{
+  fixed diff = targetColor.b - 39.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColorR()
+{
+  fixed diff = targetColor.g - 68.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorRL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorRR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorRL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+ColorMatch findColor()
+{
+  fixed diff = targetColor.r - 127.0/255;
+  if (diff >= 0)
+  {
+    ColorMatch best = findColorL();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorR();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+  else
+  {
+    ColorMatch best = findColorR();
+    if (best.minDistSqr <= diff * diff) return best;
+    ColorMatch otherBest = findColorL();
+    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;
+  }
+}
+
+fixed4 nearestColor(fixed4 color)
+{
+  targetColor = color;
+  ColorMatch best = findColor();
+  return best.color;
+}
+
+// End of generated code
