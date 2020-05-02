@@ -19,7 +19,7 @@ Using OCaml optimizing compiler:
     
 Example
 
-    ./palette 42
+    ./palette 42 > palette.txt
 
 Generated code will be output to the standard output, while debugging message may be sent to the standard error stream.
 palette.txt is an example of code generated.
