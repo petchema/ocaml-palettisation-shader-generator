@@ -231,66 +231,75 @@ let node_function prefix component limit left_function right_function =
             (*  Printf.printf "    return (otherBest.minDistSqr >= best.minDistSqr) ? best : otherBest;\n" ^ *)
             Printf.sprintf "    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;\n" ^
             Printf.sprintf "  }\n}\n\n")
+
+let list_pick_best scoref list =
+  let rec aux best best_score remaining =
+    match remaining with
+    | [] -> best
+    | h :: q ->
+       let h_score = scoref h in
+       if h_score > best_score
+       then aux h h_score q
+       else aux best best_score q in
+  match list with
+  | [] -> failwith "list_pick_best"
+  | h :: q -> aux h (scoref h) q
   
 let split proj dist palette cluster_size =
-  (* col_min .. col_max defines the color box *)
-  let rec split_r col_min col_max palette prefix =
+  let rec split_x palette prefix =
     let palette_count = List.length palette in
     if palette_count <= cluster_size then leaf_function prefix palette
     else
-      let sorted_palette = List.sort (fun col1 col2 -> col1.r - col2.r) palette in
-      let left_list, right_list = list_split sorted_palette (palette_count / 2) in
-      Printf.eprintf "split r %d %d\n%!" (List.length left_list) (List.length right_list);
-      match left_list, right_list with
-      | first_left :: _, first_right :: _ ->
-         let median = (first_left.r + first_right.r) / 2 in
-         let left_list, right_list = push_left (fun col -> col.r == median) left_list right_list in
-         (match right_list with
-          | [] -> split_g col_min col_max palette prefix
-          | _ ->
-             let left_function = split_g {col_min with r=median} col_max right_list (prefix ^ "L") in
-             let right_function = split_g col_min {col_max with r=median-1} left_list (prefix ^ "R") in
-             node_function prefix "r" median left_function right_function)
-      | _, [] | [], _ -> split_g col_min col_max palette prefix
-  and split_g col_min col_max palette prefix =
-    let palette_count = List.length palette in
-    if palette_count <= cluster_size then leaf_function prefix palette
-    else
-      let sorted_palette = List.sort (fun col1 col2 -> col1.g - col2.g) palette in
-      let left_list, right_list = list_split sorted_palette (palette_count / 2) in
-      Printf.eprintf "split g %d %d\n%!" (List.length left_list) (List.length right_list);
-      match left_list, right_list with
-      | first_left :: _, first_right :: _ ->
-         let median = (first_left.g + first_right.g) / 2 in
-         let left_list, right_list = push_left (fun col -> col.g == median) left_list right_list in
-         (match right_list with
-          | [] -> split_b col_min col_max palette prefix
-          | _ ->
-             let left_function = split_b {col_min with g=median} col_max right_list (prefix ^ "L") in
-             let right_function = split_b col_min {col_max with g=median-1} left_list (prefix ^ "R") in
-             node_function prefix "g" median left_function right_function)
-      | _, [] | [], _ -> split_b col_min col_max palette prefix
-  and split_b col_min col_max palette prefix =
-    let palette_count = List.length palette in
-    if palette_count <= cluster_size then leaf_function prefix palette
-    else
-      let sorted_palette = List.sort (fun col1 col2 -> col1.b - col2.b) palette in
-      let left_list, right_list = list_split sorted_palette (palette_count / 2) in
-      Printf.eprintf "split b %d %d\n%!" (List.length left_list) (List.length right_list);
-      match left_list, right_list with
-      | first_left :: _, first_right :: _ ->
-         let median = (first_left.b + first_right.b) / 2 in
-         let left_list, right_list = push_left (fun col -> col.b == median) left_list right_list in
-         (match right_list with
-          | [] -> split_r col_min col_max palette prefix
-          | _ ->
-             let left_function = split_r {col_min with b=median} col_max right_list (prefix ^ "L") in
-             let right_function = split_r col_min {col_max with b=median-1} left_list (prefix ^ "R") in
-             node_function prefix "b" median left_function right_function)
-      | _, [] | [], _ -> split_r col_min col_max palette prefix
-  in
+      let list_possibilities =
+        (let sorted_palette = List.sort (fun col1 col2 -> col1.r - col2.r) palette in
+         let left_list, right_list = list_split sorted_palette (palette_count / 2) in
+         match left_list, right_list with
+         | first_left :: _, first_right :: _ ->
+            let median = (first_left.r + first_right.r) / 2 in
+            (let left_list, right_list = push_left (fun col -> col.r == median) left_list right_list in
+             match right_list with
+             | [] -> []
+             | _ -> [("r", median, left_list, right_list)]) @
+            (let left_list, right_list = push_right (fun col -> col.r == median) left_list right_list in
+             match left_list with
+             | [] -> []
+             | _ -> [("r", median-1, left_list, right_list)])
+         | _ -> []) @
+        (let sorted_palette = List.sort (fun col1 col2 -> col1.g - col2.g) palette in
+         let left_list, right_list = list_split sorted_palette (palette_count / 2) in
+         match left_list, right_list with
+         | first_left :: _, first_right :: _ ->
+            let median = (first_left.g + first_right.g) / 2 in
+            (let left_list, right_list = push_left (fun col -> col.g == median) left_list right_list in
+             match right_list with
+             | [] -> []
+             | _ -> [("g", median, left_list, right_list)]) @
+            (let left_list, right_list = push_right (fun col -> col.g == median) left_list right_list in
+             match left_list with
+             | [] -> []
+             | _ -> [("g", median-1, left_list, right_list)])
+         | _ -> []) @
+        (let sorted_palette = List.sort (fun col1 col2 -> col1.b - col2.b) palette in
+         let left_list, right_list = list_split sorted_palette (palette_count / 2) in
+         match left_list, right_list with
+         | first_left :: _, first_right :: _ ->
+            let median = (first_left.b + first_right.b) / 2 in
+            (let left_list, right_list = push_left (fun col -> col.b == median) left_list right_list in
+             match right_list with
+             | [] -> []
+             | _ -> [("b", median, left_list, right_list)]) @
+            (let left_list, right_list = push_right (fun col -> col.b == median) left_list right_list in
+             match left_list with
+             | [] -> []
+             | _ -> [("b", median-1, left_list, right_list)])
+         | _ -> []) in
+      let (component, median, left_list, right_list) = list_pick_best (fun (_, _, left_list, right_list) -> ~- (max (List.length left_list) (List.length right_list))) list_possibilities in
+      let left_function = split_x right_list (prefix ^ "L") in
+      let right_function = split_x left_list (prefix ^ "R") in
+      node_function prefix component median left_function right_function in
+      
   Printf.eprintf "Unique colors: %d\n" (List.length palette);
-  split_r {r=0;g=0;b=0} {r=255;g=255;b=255} palette ""
+  split_x palette ""
   
   
 let () =
