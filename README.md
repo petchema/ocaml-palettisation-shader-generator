@@ -1,6 +1,6 @@
 # ocaml-palettisation-shader-generator
 
-Generates nearest-color palettization shader code using ART_PAL classic palette from Daggerfall.
+Generates nearest-color palettization shader code using classic palettes from Daggerfall.
 This has been used in a retro mode shader of Daggerfall Unity.
 
 The algorithm is a k-d tree based nearest-neighbour search (Wikipedia: https://en.wikipedia.org/wiki/K-d_tree#Nearest_neighbour_search), with a cutoff when reaching a partition smaller than a given number of colors.
@@ -15,11 +15,13 @@ Using OCaml optimizing compiler:
 
 ## Execution
 
-    ./palette [max size of color clusters]
+    ./palette [palette file name] [max size of color clusters]
     
 Example
 
-    ./palette 42 > palette.txt
+    ./palette ART_PAL.txt 42 > palette.txt
+
+Input palette file should be a text file, containing R G B values in 0-255 range, one color per line.
 
 Generated code will be output to the standard output, while debugging message may be sent to the standard error stream.
 palette.txt is an example of code generated.
