@@ -23,7 +23,7 @@ Example
 
 Input palette file should be a text file, containing R G B values in 0-255 range, one color per line.
 
-Generated code will be output to the standard output, while debugging message may be sent to the standard error stream.
+Generated code will be sent to the standard output, while debugging messages may be sent to the standard error stream.
 palette.txt is an example of code generated.
 
 The main function provided by this code is simply
