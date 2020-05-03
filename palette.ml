@@ -232,19 +232,6 @@ let node_function prefix component limit left_function right_function =
             Printf.sprintf "    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;\n" ^
             Printf.sprintf "  }\n}\n\n")
 
-let list_pick_best scoref list =
-  let rec aux best best_score remaining =
-    match remaining with
-    | [] -> best
-    | h :: q ->
-       let h_score = scoref h in
-       if h_score > best_score
-       then aux h h_score q
-       else aux best best_score q in
-  match list with
-  | [] -> failwith "list_pick_best"
-  | h :: q -> aux h (scoref h) q
-  
 let split proj dist palette cluster_size =
   let rec split_x palette prefix =
     let palette_count = List.length palette in
@@ -259,11 +246,11 @@ let split proj dist palette cluster_size =
             (let left_list, right_list = push_left (fun col -> col.r == median) left_list right_list in
              match right_list with
              | [] -> []
-             | _ -> [("r", median, left_list, right_list)]) @
+             | _ -> [("r", (fun c -> c.r), median, left_list, right_list)]) @
             (let left_list, right_list = push_right (fun col -> col.r == median) left_list right_list in
              match left_list with
              | [] -> []
-             | _ -> [("r", median-1, left_list, right_list)])
+             | _ -> [("r", (fun c -> c.r),  median-1, left_list, right_list)])
          | _ -> []) @
         (let sorted_palette = List.sort (fun col1 col2 -> col1.g - col2.g) palette in
          let left_list, right_list = list_split sorted_palette (palette_count / 2) in
@@ -273,11 +260,11 @@ let split proj dist palette cluster_size =
             (let left_list, right_list = push_left (fun col -> col.g == median) left_list right_list in
              match right_list with
              | [] -> []
-             | _ -> [("g", median, left_list, right_list)]) @
+             | _ -> [("g", (fun c -> c.g), median, left_list, right_list)]) @
             (let left_list, right_list = push_right (fun col -> col.g == median) left_list right_list in
              match left_list with
              | [] -> []
-             | _ -> [("g", median-1, left_list, right_list)])
+             | _ -> [("g", (fun c -> c.g), median-1, left_list, right_list)])
          | _ -> []) @
         (let sorted_palette = List.sort (fun col1 col2 -> col1.b - col2.b) palette in
          let left_list, right_list = list_split sorted_palette (palette_count / 2) in
@@ -287,13 +274,25 @@ let split proj dist palette cluster_size =
             (let left_list, right_list = push_left (fun col -> col.b == median) left_list right_list in
              match right_list with
              | [] -> []
-             | _ -> [("b", median, left_list, right_list)]) @
+             | _ -> [("b", (fun c -> c.b),  median, left_list, right_list)]) @
             (let left_list, right_list = push_right (fun col -> col.b == median) left_list right_list in
              match left_list with
              | [] -> []
-             | _ -> [("b", median-1, left_list, right_list)])
+             | _ -> [("b", (fun c -> c.b), median-1, left_list, right_list)])
          | _ -> []) in
-      let (component, median, left_list, right_list) = list_pick_best (fun (_, _, left_list, right_list) -> ~- (max (List.length left_list) (List.length right_list))) list_possibilities in
+      let sorted_possibilities =
+        List.sort (fun (_, proj1, _, left_list1, right_list1) (_, proj2,  _, left_list2, right_list2) ->
+            let unbalance1 = max (List.length left_list1) (List.length right_list1) in
+            let unbalance2 = max (List.length left_list2) (List.length right_list2) in
+            if unbalance1 < unbalance2 then -1
+            else if unbalance1 > unbalance2 then 1
+            else
+              let separation1 = abs(proj1 (List.hd left_list1) - proj1 (List.hd right_list1)) in
+              let separation2 = abs(proj2 (List.hd left_list2) - proj2 (List.hd right_list2)) in
+              if separation1 < separation2 then 1
+              else if separation1 > separation2 then -1
+              else 0) list_possibilities in
+      let (component, _, median, left_list, right_list) = List.hd sorted_possibilities in
       let left_function = split_x right_list (prefix ^ "L") in
       let right_function = split_x left_list (prefix ^ "R") in
       node_function prefix component median left_function right_function in
