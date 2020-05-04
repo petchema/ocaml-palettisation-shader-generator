@@ -189,6 +189,28 @@ type color_box = {
 let box_to_string box =
   Printf.sprintf "(%d,%d,%d)-(%d,%d,%d)" box.bottom.r box.bottom.g box.bottom.b box.top.r box.top.g box.top.b
 
+let elongation box =
+  let rlength = box.top.r - box.bottom.r in
+  let glength = box.top.g - box.bottom.g in
+  let blength = box.top.b - box.bottom.b in
+  max rlength (max glength blength) -
+    min rlength (min glength blength)
+
+(* find the largest distance between a color in the box and the closest color of the palette
+   only check using box corners for efficiency
+ *)
+let largest_distance dist box palette =
+  List.fold_left (fun acc r ->
+      List.fold_left (fun acc g ->
+          List.fold_left (fun acc b ->
+              List.fold_left (fun acc color ->
+                  let d = dist {r=r;g=g;b=b} color in
+                  if d > acc then d else acc
+                ) acc palette
+            ) acc [box.bottom.b; box.top.b]
+        ) acc [box.bottom.g; box.top.g]
+    ) 0 [box.bottom.r; box.top.r]
+
 type function_type = Leaf of string (* Expr *)
                    | Function of string * string (* Name and definition *)
   
@@ -306,11 +328,12 @@ let split proj dist palette cluster_size =
             if unbalance1 < unbalance2 then -1
             else if unbalance1 > unbalance2 then 1
             else
-              let separation1 = abs(proj1 (List.hd left_list1) - proj1 (List.hd right_list1)) in
-              let separation2 = abs(proj2 (List.hd left_list2) - proj2 (List.hd right_list2)) in
-              if separation1 < separation2 then 1
-              else if separation1 > separation2 then -1
-              else 0) list_possibilities in
+              let largest_distance = largest_distance dist_euclidian in
+              let largest_distance1 = max (largest_distance left_box1 left_list1) (largest_distance right_box1 right_list1) in
+              let largest_distance2 = max (largest_distance left_box2 left_list2) (largest_distance right_box2 right_list2) in
+              if largest_distance1 < largest_distance2 then -1
+              else if largest_distance1 > largest_distance2 then 1
+                else 0) list_possibilities in
       let (component, _, median, left_box, right_box, left_list, right_list) = List.hd sorted_possibilities in
       let left_function = split_x left_list (prefix ^ "L") left_box in
       let right_function = split_x right_list (prefix ^ "R") right_box in
