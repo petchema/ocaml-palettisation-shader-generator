@@ -197,19 +197,22 @@ let elongation box =
     min rlength (min glength blength)
 
 (* find the largest distance between a color in the box and the closest color of the palette
-   only check using box corners for efficiency
+   only sample the box for efficiency
  *)
-let largest_distance dist box palette =
-  List.fold_left (fun acc r ->
-      List.fold_left (fun acc g ->
-          List.fold_left (fun acc b ->
-              List.fold_left (fun acc color ->
-                  let d = dist {r=r;g=g;b=b} color in
-                  if d > acc then d else acc
-                ) acc palette
-            ) acc [box.bottom.b; box.top.b]
-        ) acc [box.bottom.g; box.top.g]
-    ) 0 [box.bottom.r; box.top.r]
+let sum_distance dist box palette =
+  let sampling = 1000 in
+  let rec aux total n =
+    if n = 0 then total
+    else
+      let probe = { r=box.bottom.r + Random.int (box.top.r - box.bottom.r + 1);
+                    g=box.bottom.g + Random.int (box.top.g - box.bottom.g + 1);
+                    b=box.bottom.b + Random.int (box.top.b - box.bottom.b + 1) } in
+      let d = List.fold_left (fun acc color ->
+                  let d = dist probe color in
+                  if d < acc then d else acc) 1000 palette in
+      aux (total + d) (n-1) in
+  let volume = (box.top.r - box.bottom.r + 1) * (box.top.g - box.bottom.g + 1) * (box.top.b - box.bottom.b + 1) in
+  aux 0 (volume / sampling)
 
 type function_type = Leaf of string (* Expr *)
                    | Function of string * string (* Name and definition *)
@@ -328,11 +331,11 @@ let split proj dist palette cluster_size =
             if unbalance1 < unbalance2 then -1
             else if unbalance1 > unbalance2 then 1
             else
-              let largest_distance = largest_distance dist_euclidian in
-              let largest_distance1 = max (largest_distance left_box1 left_list1) (largest_distance right_box1 right_list1) in
-              let largest_distance2 = max (largest_distance left_box2 left_list2) (largest_distance right_box2 right_list2) in
-              if largest_distance1 < largest_distance2 then -1
-              else if largest_distance1 > largest_distance2 then 1
+              let sum_distance = sum_distance dist_euclidian in
+              let sum_distance1 = (sum_distance left_box1 left_list1) + (sum_distance right_box1 right_list1) in
+              let sum_distance2 = (sum_distance left_box2 left_list2) + (sum_distance right_box2 right_list2) in
+              if sum_distance1 < sum_distance2 then -1
+              else if sum_distance1 > sum_distance2 then 1
                 else 0) list_possibilities in
       let (component, _, median, left_box, right_box, left_list, right_list) = List.hd sorted_possibilities in
       let left_function = split_x left_list (prefix ^ "L") left_box in
