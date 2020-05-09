@@ -3,18 +3,12 @@
 
 // ART_PAL+NIGHTSKY_blues.txt - 286 unique colors - max color cluster size 20
 fixed3 targetColor;
+fixed4 best;
 
-fixed disSqr(fixed3 t, fixed3 c)
+void tryColor(fixed3 color)
 {
-  return dot(t - c, t - c);
-}
-
-fixed4 buildColorMatch(fixed3 color)
-{
-  fixed4 match;
-  match.rgb = color;
-  match.a = disSqr(targetColor, color);
-  return match;
+  fixed dist = dot(targetColor - color, targetColor - color);
+  if (dist < best.a) best = fixed4(color, dist);
 }
 
 // 18 colors in (0,0,0)-(33,46,52)
@@ -39,15 +33,10 @@ const static fixed3 paletteLLLL[18] = {
   fixed3(0.0/255,0.0/255,0.0/255),
 };
 
-fixed4 findColorLLLL()
+void findColorLLLL()
 {
-  fixed4 best = buildColorMatch(paletteLLLL[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteLLLL[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteLLLL[i]);
 }
 
 // 18 colors in (34,0,0)-(110,46,52)
@@ -72,33 +61,24 @@ const static fixed3 paletteLLLR[18] = {
   fixed3(102.0/255,33.0/255,1.0/255),
 };
 
-fixed4 findColorLLLR()
+void findColorLLLR()
 {
-  fixed4 best = buildColorMatch(paletteLLLR[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteLLLR[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteLLLR[i]);
 }
 
-fixed4 findColorLLL() // 36 colors in (0,0,0)-(110,46,52)
+void findColorLLL() // 36 colors in (0,0,0)-(110,46,52)
 {
   fixed diff = targetColor.r - 34.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorLLLR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLLLL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLLLR();
+    if (best.a > diff * diff) findColorLLLL();
   }
   else
   {
-    fixed4 best = findColorLLLL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLLLR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLLLL();
+    if (best.a > diff * diff) findColorLLLR();
   }
 }
 
@@ -123,15 +103,10 @@ const static fixed3 paletteLLRL[17] = {
   fixed3(40.0/255,47.0/255,40.0/255),
 };
 
-fixed4 findColorLLRL()
+void findColorLLRL()
 {
-  fixed4 best = buildColorMatch(paletteLLRL[0]);
-  for (int i = 1; i < 17; i++)
-  {
-    fixed4 other = buildColorMatch(paletteLLRL[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 17; i++)
+    tryColor(paletteLLRL[i]);
 }
 
 // 18 colors in (0,62,0)-(110,255,52)
@@ -156,52 +131,39 @@ const static fixed3 paletteLLRR[18] = {
   fixed3(84.0/255,118.0/255,48.0/255),
 };
 
-fixed4 findColorLLRR()
+void findColorLLRR()
 {
-  fixed4 best = buildColorMatch(paletteLLRR[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteLLRR[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteLLRR[i]);
 }
 
-fixed4 findColorLLR() // 35 colors in (0,47,0)-(110,255,52)
+void findColorLLR() // 35 colors in (0,47,0)-(110,255,52)
 {
   fixed diff = targetColor.g - 62.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorLLRR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLLRL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLLRR();
+    if (best.a > diff * diff) findColorLLRL();
   }
   else
   {
-    fixed4 best = findColorLLRL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLLRR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLLRL();
+    if (best.a > diff * diff) findColorLLRR();
   }
 }
 
-fixed4 findColorLL() // 71 colors in (0,0,0)-(110,255,52)
+void findColorLL() // 71 colors in (0,0,0)-(110,255,52)
 {
   fixed diff = targetColor.g - 47.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorLLR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLLL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLLR();
+    if (best.a > diff * diff) findColorLLL();
   }
   else
   {
-    fixed4 best = findColorLLL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLLR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLLL();
+    if (best.a > diff * diff) findColorLLR();
   }
 }
 
@@ -227,15 +189,10 @@ const static fixed3 paletteLRLL[18] = {
   fixed3(0.0/255,0.0/255,108.0/255),
 };
 
-fixed4 findColorLRLL()
+void findColorLRLL()
 {
-  fixed4 best = buildColorMatch(paletteLRLL[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteLRLL[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteLRLL[i]);
 }
 
 // 18 colors in (0,28,53)-(110,73,255)
@@ -260,33 +217,24 @@ const static fixed3 paletteLRLR[18] = {
   fixed3(45.0/255,72.0/255,72.0/255),
 };
 
-fixed4 findColorLRLR()
+void findColorLRLR()
 {
-  fixed4 best = buildColorMatch(paletteLRLR[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteLRLR[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteLRLR[i]);
 }
 
-fixed4 findColorLRL() // 36 colors in (0,0,53)-(110,73,255)
+void findColorLRL() // 36 colors in (0,0,53)-(110,73,255)
 {
   fixed diff = targetColor.g - 28.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorLRLR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLRLL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLRLR();
+    if (best.a > diff * diff) findColorLRLL();
   }
   else
   {
-    fixed4 best = findColorLRLL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLRLR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLRLL();
+    if (best.a > diff * diff) findColorLRLR();
   }
 }
 
@@ -312,15 +260,10 @@ const static fixed3 paletteLRRL[18] = {
   fixed3(61.0/255,89.0/255,53.0/255),
 };
 
-fixed4 findColorLRRL()
+void findColorLRRL()
 {
-  fixed4 best = buildColorMatch(paletteLRRL[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteLRRL[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteLRRL[i]);
 }
 
 // 18 colors in (0,74,106)-(110,255,255)
@@ -345,71 +288,54 @@ const static fixed3 paletteLRRR[18] = {
   fixed3(104.0/255,152.0/255,217.0/255),
 };
 
-fixed4 findColorLRRR()
+void findColorLRRR()
 {
-  fixed4 best = buildColorMatch(paletteLRRR[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteLRRR[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteLRRR[i]);
 }
 
-fixed4 findColorLRR() // 36 colors in (0,74,53)-(110,255,255)
+void findColorLRR() // 36 colors in (0,74,53)-(110,255,255)
 {
   fixed diff = targetColor.b - 106.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorLRRR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLRRL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLRRR();
+    if (best.a > diff * diff) findColorLRRL();
   }
   else
   {
-    fixed4 best = findColorLRRL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLRRR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLRRL();
+    if (best.a > diff * diff) findColorLRRR();
   }
 }
 
-fixed4 findColorLR() // 72 colors in (0,0,53)-(110,255,255)
+void findColorLR() // 72 colors in (0,0,53)-(110,255,255)
 {
   fixed diff = targetColor.g - 74.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorLRR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLRL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLRR();
+    if (best.a > diff * diff) findColorLRL();
   }
   else
   {
-    fixed4 best = findColorLRL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLRR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLRL();
+    if (best.a > diff * diff) findColorLRR();
   }
 }
 
-fixed4 findColorL() // 143 colors in (0,0,0)-(110,255,255)
+void findColorL() // 143 colors in (0,0,0)-(110,255,255)
 {
   fixed diff = targetColor.b - 53.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorLR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLR();
+    if (best.a > diff * diff) findColorLL();
   }
   else
   {
-    fixed4 best = findColorLL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorLR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorLL();
+    if (best.a > diff * diff) findColorLR();
   }
 }
 
@@ -435,15 +361,10 @@ const static fixed3 paletteRLLL[18] = {
   fixed3(111.0/255,34.0/255,0.0/255),
 };
 
-fixed4 findColorRLLL()
+void findColorRLLL()
 {
-  fixed4 best = buildColorMatch(paletteRLLL[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteRLLL[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteRLLL[i]);
 }
 
 // 18 colors in (149,0,0)-(255,106,94)
@@ -468,33 +389,24 @@ const static fixed3 paletteRLLR[18] = {
   fixed3(198.0/255,95.0/255,31.0/255),
 };
 
-fixed4 findColorRLLR()
+void findColorRLLR()
 {
-  fixed4 best = buildColorMatch(paletteRLLR[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteRLLR[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteRLLR[i]);
 }
 
-fixed4 findColorRLL() // 36 colors in (111,0,0)-(255,106,94)
+void findColorRLL() // 36 colors in (111,0,0)-(255,106,94)
 {
   fixed diff = targetColor.r - 149.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorRLLR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRLLL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRLLR();
+    if (best.a > diff * diff) findColorRLLL();
   }
   else
   {
-    fixed4 best = findColorRLLL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRLLR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRLLL();
+    if (best.a > diff * diff) findColorRLLR();
   }
 }
 
@@ -520,15 +432,10 @@ const static fixed3 paletteRLRL[18] = {
   fixed3(179.0/255,107.0/255,83.0/255),
 };
 
-fixed4 findColorRLRL()
+void findColorRLRL()
 {
-  fixed4 best = buildColorMatch(paletteRLRL[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteRLRL[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteRLRL[i]);
 }
 
 // 18 colors in (111,141,0)-(255,255,94)
@@ -553,52 +460,39 @@ const static fixed3 paletteRLRR[18] = {
   fixed3(241.0/255,238.0/255,45.0/255),
 };
 
-fixed4 findColorRLRR()
+void findColorRLRR()
 {
-  fixed4 best = buildColorMatch(paletteRLRR[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteRLRR[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteRLRR[i]);
 }
 
-fixed4 findColorRLR() // 36 colors in (111,107,0)-(255,255,94)
+void findColorRLR() // 36 colors in (111,107,0)-(255,255,94)
 {
   fixed diff = targetColor.g - 141.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorRLRR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRLRL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRLRR();
+    if (best.a > diff * diff) findColorRLRL();
   }
   else
   {
-    fixed4 best = findColorRLRL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRLRR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRLRL();
+    if (best.a > diff * diff) findColorRLRR();
   }
 }
 
-fixed4 findColorRL() // 72 colors in (111,0,0)-(255,255,94)
+void findColorRL() // 72 colors in (111,0,0)-(255,255,94)
 {
   fixed diff = targetColor.g - 107.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorRLR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRLL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRLR();
+    if (best.a > diff * diff) findColorRLL();
   }
   else
   {
-    fixed4 best = findColorRLL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRLR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRLL();
+    if (best.a > diff * diff) findColorRLR();
   }
 }
 
@@ -623,15 +517,10 @@ const static fixed3 paletteRRLL[17] = {
   fixed3(127.0/255,77.0/255,106.0/255),
 };
 
-fixed4 findColorRRLL()
+void findColorRRLL()
 {
-  fixed4 best = buildColorMatch(paletteRRLL[0]);
-  for (int i = 1; i < 17; i++)
-  {
-    fixed4 other = buildColorMatch(paletteRRLL[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 17; i++)
+    tryColor(paletteRRLL[i]);
 }
 
 // 18 colors in (111,159,95)-(191,255,255)
@@ -656,33 +545,24 @@ const static fixed3 paletteRRLR[18] = {
   fixed3(182.0/255,218.0/255,227.0/255),
 };
 
-fixed4 findColorRRLR()
+void findColorRRLR()
 {
-  fixed4 best = buildColorMatch(paletteRRLR[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteRRLR[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteRRLR[i]);
 }
 
-fixed4 findColorRRL() // 35 colors in (111,0,95)-(191,255,255)
+void findColorRRL() // 35 colors in (111,0,95)-(191,255,255)
 {
   fixed diff = targetColor.g - 159.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorRRLR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRRLL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRRLR();
+    if (best.a > diff * diff) findColorRRLL();
   }
   else
   {
-    fixed4 best = findColorRRLL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRRLR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRRLL();
+    if (best.a > diff * diff) findColorRRLR();
   }
 }
 
@@ -708,15 +588,10 @@ const static fixed3 paletteRRRL[18] = {
   fixed3(255.0/255,185.0/255,98.0/255),
 };
 
-fixed4 findColorRRRL()
+void findColorRRRL()
 {
-  fixed4 best = buildColorMatch(paletteRRRL[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteRRRL[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteRRRL[i]);
 }
 
 // 18 colors in (192,0,133)-(255,255,255)
@@ -741,97 +616,77 @@ const static fixed3 paletteRRRR[18] = {
   fixed3(205.0/255,205.0/255,224.0/255),
 };
 
-fixed4 findColorRRRR()
+void findColorRRRR()
 {
-  fixed4 best = buildColorMatch(paletteRRRR[0]);
-  for (int i = 1; i < 18; i++)
-  {
-    fixed4 other = buildColorMatch(paletteRRRR[i]);
-    if (other.a < best.a) best = other;
-  }
-  return best;
+  for (int i = 0; i < 18; i++)
+    tryColor(paletteRRRR[i]);
 }
 
-fixed4 findColorRRR() // 36 colors in (192,0,95)-(255,255,255)
+void findColorRRR() // 36 colors in (192,0,95)-(255,255,255)
 {
   fixed diff = targetColor.b - 133.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorRRRR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRRRL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRRRR();
+    if (best.a > diff * diff) findColorRRRL();
   }
   else
   {
-    fixed4 best = findColorRRRL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRRRR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRRRL();
+    if (best.a > diff * diff) findColorRRRR();
   }
 }
 
-fixed4 findColorRR() // 71 colors in (111,0,95)-(255,255,255)
+void findColorRR() // 71 colors in (111,0,95)-(255,255,255)
 {
   fixed diff = targetColor.r - 192.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorRRR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRRL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRRR();
+    if (best.a > diff * diff) findColorRRL();
   }
   else
   {
-    fixed4 best = findColorRRL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRRR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRRL();
+    if (best.a > diff * diff) findColorRRR();
   }
 }
 
-fixed4 findColorR() // 143 colors in (111,0,0)-(255,255,255)
+void findColorR() // 143 colors in (111,0,0)-(255,255,255)
 {
   fixed diff = targetColor.b - 95.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorRR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRR();
+    if (best.a > diff * diff) findColorRL();
   }
   else
   {
-    fixed4 best = findColorRL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorRR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorRL();
+    if (best.a > diff * diff) findColorRR();
   }
 }
 
-fixed4 findColor() // 286 colors in (0,0,0)-(255,255,255)
+void findColor() // 286 colors in (0,0,0)-(255,255,255)
 {
   fixed diff = targetColor.r - 111.0/255;
   if (diff >= 0)
   {
-    fixed4 best = findColorR();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorL();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorR();
+    if (best.a > diff * diff) findColorL();
   }
   else
   {
-    fixed4 best = findColorL();
-    if (best.a <= diff * diff) return best;
-    fixed4 otherBest = findColorR();
-    if (otherBest.a >= best.a) return best; else return otherBest;
+    findColorL();
+    if (best.a > diff * diff) findColorR();
   }
 }
 
 fixed4 nearestColor(fixed3 color)
 {
   targetColor = color;
-  fixed4 best = findColor();
+  best = fixed4(0.0, 0.0, 0.0, 2.0);
+  findColor();
   best.a = 1.0;
   return best;
 }
