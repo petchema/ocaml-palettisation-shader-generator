@@ -219,22 +219,26 @@ type function_type = Leaf of string (* Expr *)
   
 let leaf_function prefix palette box =
   let color = palette_average_color palette in
-  Leaf (Printf.sprintf "buildColorMatch(fixed4(%d.0/255,%d.0/255,%d.0/255,1.0))" color.r color.g color.b)
+  Leaf (Printf.sprintf "buildColorMatch(fixed3(%d.0/255,%d.0/255,%d.0/255))" color.r color.g color.b)
 
 let leaf_function prefix palette box =
-  Function (Printf.sprintf "findColor%s" prefix,
-            Printf.sprintf "ColorMatch findColor%s() // %d colors in %s\n{\n" prefix (List.length palette) (box_to_string box) ^
-              (let rec aux palette =
-                 match palette with
-                 | [] -> ""
-                 | h :: q ->
-                    Printf.sprintf "  other = buildColorMatch(fixed4(%d.0/255,%d.0/255,%d.0/255,1.0));\n  if (other.minDistSqr < best.minDistSqr) best = other;\n%s" h.r h.g h.b (aux q) in
-                match palette with
-                | [] -> failwith "leaf_function"
-                | [h] -> 
-                   Printf.sprintf "  return buildColorMatch(fixed4(%d.0/255,%d.0/255,%d.0/255,1.0));\n}\n\n" h.r h.g h.b
-                | h :: q ->
-                   Printf.sprintf "  ColorMatch best = buildColorMatch(fixed4(%d.0/255,%d.0/255,%d.0/255,1.0));\n  ColorMatch other;\n%s  return best;\n}\n\n" h.r h.g h.b (aux q)))
+  match palette with
+  | [] -> failwith "leaf_function"
+  | [h] -> 
+     Leaf (Printf.sprintf "buildColorMatch(fixed3(%d.0/255,%d.0/255,%d.0/255))" h.r h.g h.b)
+  | _ ->
+     Function (Printf.sprintf "findColor%s" prefix,
+               Printf.sprintf "// %d colors in %s\n" (List.length palette) (box_to_string box) ^
+               Printf.sprintf "const static fixed3 palette%s[%d] = {\n" prefix (List.length palette) ^
+               List.fold_left (fun acc c -> Printf.sprintf "%s  fixed3(%d.0/255,%d.0/255,%d.0/255),\n" acc c.r c.g c.b) "" palette ^
+               Printf.sprintf "};\n\n" ^
+               Printf.sprintf "fixed4 findColor%s()\n{\n" prefix ^
+               Printf.sprintf "  fixed4 best = buildColorMatch(palette%s[0]);\n" prefix ^
+               Printf.sprintf "  for (int i = 1; i < %d; i++)\n  {\n" (List.length palette) ^
+               Printf.sprintf "    fixed4 other = buildColorMatch(palette%s[i]);\n" prefix ^
+               Printf.sprintf "    if (other.a < best.a) best = other;\n  }\n" ^
+               Printf.sprintf "  return best;\n}\n\n")
+
   
 let node_function prefix palette box component limit left_function right_function =
   let left_def, left_call =
@@ -248,20 +252,18 @@ let node_function prefix palette box component limit left_function right_functio
   Function (Printf.sprintf "findColor%s" prefix,
             left_def ^
             right_def ^
-            Printf.sprintf "ColorMatch findColor%s() // %d colors in %s\n{\n" prefix (List.length palette) (box_to_string box) ^
+            Printf.sprintf "fixed4 findColor%s() // %d colors in %s\n{\n" prefix (List.length palette) (box_to_string box) ^
             Printf.sprintf "  fixed diff = targetColor.%s - %d.0/255;\n" component limit ^
             Printf.sprintf "  if (diff >= 0)\n  {\n" ^
-            Printf.sprintf "    ColorMatch best = %s;\n" right_call ^
-            Printf.sprintf "    if (best.minDistSqr <= diff * diff) return best;\n" ^
-            Printf.sprintf "    ColorMatch otherBest = %s;\n" left_call ^
-            (*  Printf.printf "    return (otherBest.minDistSqr >= best.minDistSqr) ? best : otherBest;\n" ^ *)
-            Printf.sprintf "    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;\n" ^
+            Printf.sprintf "    fixed4 best = %s;\n" right_call ^
+            Printf.sprintf "    if (best.a <= diff * diff) return best;\n" ^
+            Printf.sprintf "    fixed4 otherBest = %s;\n" left_call ^
+            Printf.sprintf "    if (otherBest.a >= best.a) return best; else return otherBest;\n" ^
             Printf.sprintf "  }\n  else\n  {\n" ^
-            Printf.sprintf "    ColorMatch best = %s;\n" left_call ^
-            Printf.sprintf "    if (best.minDistSqr <= diff * diff) return best;\n" ^
-            Printf.sprintf "    ColorMatch otherBest = %s;\n" right_call ^
-            (*  Printf.printf "    return (otherBest.minDistSqr >= best.minDistSqr) ? best : otherBest;\n" ^ *)
-            Printf.sprintf "    if (otherBest.minDistSqr >= best.minDistSqr) return best; else return otherBest;\n" ^
+            Printf.sprintf "    fixed4 best = %s;\n" left_call ^
+            Printf.sprintf "    if (best.a <= diff * diff) return best;\n" ^
+            Printf.sprintf "    fixed4 otherBest = %s;\n" right_call ^
+            Printf.sprintf "    if (otherBest.a >= best.a) return best; else return otherBest;\n" ^
             Printf.sprintf "  }\n}\n\n")
 
 let list_flatmap f list =
@@ -354,15 +356,14 @@ let () =
   Printf.printf "// Beginning of generated code\n";
   Printf.printf "// See https://github.com/petchema/ocaml-palettisation-shader-generator\n\n";
   Printf.printf "// %s - %d unique colors - max color cluster size %d\n" palette_filename (List.length palette_dedup) cluster_size;
-  Printf.printf "struct ColorMatch\n{\n  fixed4 color;\n  fixed minDistSqr;\n};\n\n";
-  Printf.printf "fixed4 targetColor;\n\n";
-  Printf.printf "fixed disSqr(fixed4 t, fixed4 c)\n{\n";
+  Printf.printf "fixed3 targetColor;\n\n";
+  Printf.printf "fixed disSqr(fixed3 t, fixed3 c)\n{\n";
   Printf.printf "  return dot(t - c, t - c);\n";
   Printf.printf "}\n\n";
-  Printf.printf "ColorMatch buildColorMatch(fixed4 color)\n{\n";
-  Printf.printf "  ColorMatch match;\n";
-  Printf.printf "  match.color = color;\n";
-  Printf.printf "  match.minDistSqr = disSqr(targetColor, color);\n";
+  Printf.printf "fixed4 buildColorMatch(fixed3 color)\n{\n";
+  Printf.printf "  fixed4 match;\n";
+  Printf.printf "  match.rgb = color;\n";
+  Printf.printf "  match.a = disSqr(targetColor, color);\n";
   Printf.printf "  return match;\n";
   Printf.printf "}\n\n";
   (match split proj_id dist_euclidian palette_dedup cluster_size with
@@ -370,9 +371,10 @@ let () =
       Printf.printf "%s" expr
    | Function (name, def) ->
       Printf.printf "%s" def);
-  Printf.printf "fixed4 nearestColor(fixed4 color)\n{\n";
+  Printf.printf "fixed4 nearestColor(fixed3 color)\n{\n";
   Printf.printf "  targetColor = color;\n";
-  Printf.printf "  ColorMatch best = findColor();\n";
-  Printf.printf "  return best.color;\n";
+  Printf.printf "  fixed4 best = findColor();\n";
+  Printf.printf "  best.a = 1.0;\n";
+  Printf.printf "  return best;\n";
   Printf.printf "}\n\n";
   Printf.printf "// End of generated code\n"
